@@ -4,6 +4,7 @@
 #include <DNSServer.h>
 #include <WebServer.h>
 #include <WiFi.h>
+#include <SPIFFS.h>
 
 #define WIFI_PROVISIONER_LOG_DEBUG 0
 #define WIFI_PROVISIONER_LOG_INFO 1
@@ -177,13 +178,19 @@ void sendHeader(WiFiClient &client, int statusCode, const char *contentType,
  * - `RESET_CONFIRMATION_TEXT`: "This process cannot be undone." - Text for
  * factory reset confirmation.
  *
- * - `INPUT_TEXT`: "Device Key" - Label text for an additional input field (if
- * shown).
+ * - `INPUT_TEXT`: "Device Key" - Label text for the first additional input
+ *   field (if shown).
  *
- * - `INPUT_LENGTH`: 6 - Maximum length for the additional input field.
+ * - `INPUT_LENGTH`: 6 - Maximum length for the first additional input field.
  *
- * - `SHOW_INPUT_FIELD`: `false` - Whether to display the additional input
- * field on the page.
+ * - `SHOW_INPUT_FIELD`: `false` - Whether to display the first additional
+ *   input field on the page.
+ *
+ * - `INPUT_TEXT_2`, `INPUT_LENGTH_2`, `SHOW_INPUT_FIELD_2` - same concept for a
+ *   second custom input field.
+ *
+ * - `INPUT_TEXT_3`, `INPUT_LENGTH_3`, `SHOW_INPUT_FIELD_3` - configuration for
+ *   a third custom input field.
  *
  * - `SHOW_RESET_FIELD`: `true` - Whether to display the factory reset option.
  *
@@ -198,9 +205,15 @@ void sendHeader(WiFiClient &client, int statusCode, const char *contentType,
  * @param footerText Text displayed in the footer.
  * @param connectionSuccessful Message shown after a successful connection.
  * @param resetConfirmationText Confirmation text for factory resets.
- * @param inputText Label for an additional input field (if shown).
- * @param inputLength Maximum length for the additional input field.
- * @param showInputField Whether to display the additional input field.
+ * @param inputText Label for the first additional input field (if shown).
+ * @param inputLength Maximum length for the first additional input field.
+ * @param showInputField Whether to display the first additional input field.
+ * @param inputText2 Label for the second input field (if shown).
+ * @param inputLength2 Maximum length for the second input field.
+ * @param showInputField2 Whether to display the second input field.
+ * @param inputText3 Label for the third input field (if shown).
+ * @param inputLength3 Maximum length for the third input field.
+ * @param showInputField3 Whether to display the third input field.
  * @param showResetField Whether to display the factory reset option.
  *
  * Example Usage:
@@ -209,7 +222,10 @@ void sendHeader(WiFiClient &client, int statusCode, const char *contentType,
  *     "CustomAP", "Custom Title", "darkblue", "<custom_svg>",
  *     "Custom Project", "Custom Setup", "Custom Information",
  *     "Custom Footer", "Success Message", "Are you sure?",
- *     "Custom Key", 10, true, false);
+ *     "First Key", 10, true,
+*     "Second Key", 8, false,
+*     "Third Key", 6, true,
+*     false);
  * ```
  */
 WiFiProvisioner::Config::Config(const char *apName, const char *htmlTitle,
@@ -220,13 +236,23 @@ WiFiProvisioner::Config::Config(const char *apName, const char *htmlTitle,
                                 const char *connectionSuccessful,
                                 const char *resetConfirmationText,
                                 const char *inputText, int inputLength,
-                                bool showInputField, bool showResetField)
+                                bool showInputField,
+                                const char *inputText2, int inputLength2,
+                                bool showInputField2,
+                                const char *inputText3, int inputLength3,
+                                bool showInputField3,
+                                bool showResetField)
     : AP_NAME(apName), HTML_TITLE(htmlTitle), THEME_COLOR(themeColor),
       SVG_LOGO(svgLogo), PROJECT_TITLE(projectTitle),
       PROJECT_SUB_TITLE(projectSubTitle), PROJECT_INFO(projectInfo),
       FOOTER_TEXT(footerText), CONNECTION_SUCCESSFUL(connectionSuccessful),
-      RESET_CONFIRMATION_TEXT(resetConfirmationText), INPUT_TEXT(inputText),
-      INPUT_LENGTH(inputLength), SHOW_INPUT_FIELD(showInputField),
+      RESET_CONFIRMATION_TEXT(resetConfirmationText),
+      INPUT_TEXT(inputText), INPUT_LENGTH(inputLength),
+      SHOW_INPUT_FIELD(showInputField),
+      INPUT_TEXT_2(inputText2), INPUT_LENGTH_2(inputLength2),
+      SHOW_INPUT_FIELD_2(showInputField2),
+      INPUT_TEXT_3(inputText3), INPUT_LENGTH_3(inputLength3),
+      SHOW_INPUT_FIELD_3(showInputField3),
       SHOW_RESET_FIELD(showResetField) {}
 
 /**
@@ -258,7 +284,10 @@ WiFiProvisioner::Config::Config(const char *apName, const char *htmlTitle,
  *     "CustomAP", "Custom Title", "darkblue", "<custom_svg>",
  *     "Custom Project", "Custom Setup", "Custom Information",
  *     "Custom Footer", "Success Message", "Are you sure?",
- *     "Custom Key", 10, true, false);
+ *     "First Key", 10, true,
+*     "Second Key", 8, false,
+*     "Third Key", 6, true,
+*     false);
  * WiFiProvisioner provisioner(customConfig);
  * ```
  *
@@ -402,6 +431,27 @@ bool WiFiProvisioner::startProvisioning() {
   _server->on("/configure", HTTP_POST,
               [this]() { this->handleConfigureRequest(); });
   _server->on("/update", [this]() { this->handleUpdateRequest(); });
+  _server->on(PROVISION_HTML_FONT_FILE, [this]() {
+    WiFiClient client = _server->client();
+    if (!SPIFFS.begin(true)) {
+      sendHeader(client, 500, "text/plain", 0);
+      return;
+    }
+    File f = SPIFFS.open(PROVISION_HTML_FONT_FILE, "r");
+    if (!f) {
+      sendHeader(client, 404, "text/plain", 0);
+      return;
+    }
+    size_t size = f.size();
+    sendHeader(client, 200, "font/ttf", size);
+    const size_t bufSize = 1024;
+    uint8_t buf[bufSize];
+    while (f.available()) {
+      size_t r = f.read(buf, bufSize);
+      client.write(buf, r);
+    }
+    f.close();
+  });
   _server->on("/generate_204", [this]() { this->handleRootRequest(); });
   _server->on("/fwlink", [this]() { this->handleRootRequest(); });
   _server->on("/factoryreset", HTTP_POST,
@@ -581,7 +631,12 @@ void WiFiProvisioner::handleRootRequest() {
 
   char inputLengthStr[12];
   snprintf(inputLengthStr, sizeof(inputLengthStr), "%d", _config.INPUT_LENGTH);
+  char inputLengthStr2[12];
+  snprintf(inputLengthStr2, sizeof(inputLengthStr2), "%d", _config.INPUT_LENGTH_2);
+  char inputLengthStr3[12];
+  snprintf(inputLengthStr3, sizeof(inputLengthStr3), "%d", _config.INPUT_LENGTH_3);
 
+  // calculate required length including three label strings and their lengths
   size_t contentLength =
       strlen_P(index_html1) + strlen(_config.HTML_TITLE) +
       strlen_P(index_html2) + strlen(_config.THEME_COLOR) +
@@ -591,10 +646,14 @@ void WiFiProvisioner::handleRootRequest() {
       strlen(_config.PROJECT_INFO) + strlen_P(index_html7) +
       strlen(_config.INPUT_TEXT) + strlen_P(index_html8) +
       strlen(inputLengthStr) + strlen_P(index_html9) +
-      strlen(_config.CONNECTION_SUCCESSFUL) + strlen_P(index_html10) +
-      strlen(_config.FOOTER_TEXT) + strlen_P(index_html11) +
-      strlen(_config.RESET_CONFIRMATION_TEXT) + strlen_P(index_html12) +
-      strlen(showResetField) + strlen_P(index_html13);
+      strlen(_config.INPUT_TEXT_2) + strlen_P(index_html10) +
+      strlen(inputLengthStr2) + strlen_P(index_html11) +
+      strlen(_config.INPUT_TEXT_3) + strlen_P(index_html12) +
+      strlen(inputLengthStr3) + strlen_P(index_html13) +
+      strlen(_config.CONNECTION_SUCCESSFUL) + strlen_P(index_html14) +
+      strlen(_config.FOOTER_TEXT) + strlen_P(index_html15) +
+      strlen(_config.RESET_CONFIRMATION_TEXT) + strlen_P(index_html16) +
+      strlen(showResetField) + strlen_P(index_html17);
 
   WIFI_PROVISIONER_DEBUG_LOG(WIFI_PROVISIONER_LOG_INFO,
                              "Calculated Content Length: %zu", contentLength);
@@ -619,14 +678,22 @@ void WiFiProvisioner::handleRootRequest() {
   client.write_P(index_html8, strlen_P(index_html8));
   client.print(inputLengthStr);
   client.write_P(index_html9, strlen_P(index_html9));
-  client.print(_config.CONNECTION_SUCCESSFUL);
+  client.print(_config.INPUT_TEXT_2);
   client.write_P(index_html10, strlen_P(index_html10));
-  client.print(_config.FOOTER_TEXT);
+  client.print(inputLengthStr2);
   client.write_P(index_html11, strlen_P(index_html11));
-  client.print(_config.RESET_CONFIRMATION_TEXT);
+  client.print(_config.INPUT_TEXT_3);
   client.write_P(index_html12, strlen_P(index_html12));
-  client.print(showResetField);
+  client.print(inputLengthStr3);
   client.write_P(index_html13, strlen_P(index_html13));
+  client.print(_config.CONNECTION_SUCCESSFUL);
+  client.write_P(index_html14, strlen_P(index_html14));
+  client.print(_config.FOOTER_TEXT);
+  client.write_P(index_html15, strlen_P(index_html15));
+  client.print(_config.RESET_CONFIRMATION_TEXT);
+  client.write_P(index_html16, strlen_P(index_html16));
+  client.print(showResetField);
+  client.write_P(index_html17, strlen_P(index_html17));
   client.flush();
   client.stop();
 }
@@ -660,7 +727,10 @@ void WiFiProvisioner::handleRootRequest() {
 void WiFiProvisioner::handleUpdateRequest() {
   JsonDocument doc;
 
-  doc["show_code"] = _config.SHOW_INPUT_FIELD;
+  // indicate visibility for each custom input field
+  doc["show_code1"] = _config.SHOW_INPUT_FIELD;
+  doc["show_code2"] = _config.SHOW_INPUT_FIELD_2;
+  doc["show_code3"] = _config.SHOW_INPUT_FIELD_3;
   networkScan(doc);
 
   WiFiClient client = _server->client();
@@ -719,12 +789,15 @@ void WiFiProvisioner::handleConfigureRequest() {
 
   const char *ssid_connect = doc["ssid"];
   const char *pass_connect = doc["password"];
-  const char *input_connect = doc["code"];
+  const char *input1 = doc["code1"];
+  const char *input2 = doc["code2"];
+  const char *input3 = doc["code3"];
 
   WIFI_PROVISIONER_DEBUG_LOG(
-      WIFI_PROVISIONER_LOG_INFO, "SSID: %s, PASSWORD: %s, INPUT: %s",
-      ssid_connect ? ssid_connect : "", pass_connect ? pass_connect : "",
-      input_connect ? input_connect : "");
+      WIFI_PROVISIONER_LOG_INFO, "SSID: %s, PASSWORD: %s, INPUT1: %s INPUT2: %s INPUT3: %s",
+      ssid_connect ? ssid_connect : "",
+      pass_connect ? pass_connect : "",
+      input1 ? input1 : "", input2 ? input2 : "", input3 ? input3 : "");
 
   if (!ssid_connect) {
     WIFI_PROVISIONER_DEBUG_LOG(WIFI_PROVISIONER_LOG_WARN,
@@ -744,8 +817,8 @@ void WiFiProvisioner::handleConfigureRequest() {
     return;
   }
 
-  if (input_connect && inputCheckCallback &&
-      !inputCheckCallback(input_connect)) {
+  if ((input1 || input2 || input3) && inputCheckCallback &&
+      !inputCheckCallback(input1, input2, input3)) {
     WIFI_PROVISIONER_DEBUG_LOG(WIFI_PROVISIONER_LOG_INFO,
                                "Input check callback failed.");
     handleUnsuccessfulConnection("code");
@@ -755,7 +828,7 @@ void WiFiProvisioner::handleConfigureRequest() {
   handleSuccesfulConnection();
 
   if (onSuccessCallback) {
-    onSuccessCallback(ssid_connect, pass_connect, input_connect);
+    onSuccessCallback(ssid_connect, pass_connect, input1, input2, input3);
   }
 
   // Show success page for a while before closing the server

@@ -12,10 +12,19 @@ void setup() {
 
   // Set the success callback
   provisioner.onSuccess(
-      [](const char *ssid, const char *password, const char *input) {
+      [](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
         Serial.printf("Provisioning successful! Connected to SSID: %s\n", ssid);
         if (password) {
           Serial.printf("Password: %s\n", password);
+        }
+        if (input1) {
+          Serial.printf("Input1: %s\n", input1);
+        }
+        if (input2) {
+          Serial.printf("Input2: %s\n", input2);
+        }
+        if (input3) {
+          Serial.printf("Input3: %s\n", input3);
         }
       });
 

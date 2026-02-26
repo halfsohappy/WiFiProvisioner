@@ -3,6 +3,18 @@
 
 #include <Arduino.h>
 
+#ifndef PROVISION_HTML_FONT_FAMILY
+#define PROVISION_HTML_FONT_FAMILY "\"PlaywriteDEGrund\", sans-serif"
+#endif
+
+#ifndef PROVISION_HTML_FONT_NAME
+#define PROVISION_HTML_FONT_NAME PlaywriteDEGrund
+#endif
+
+#ifndef PROVISION_HTML_FONT_FILE
+#define PROVISION_HTML_FONT_FILE "/playwrite.ttf"
+#endif
+
 static constexpr const char index_html1[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +28,7 @@ static constexpr const char index_html2[] PROGMEM = R"rawliteral(</title>
       content="width=device-width, initial-scale=1.0, maximum-scale=1"
     />
     <style>
+      @font-face{font-family: )rawliteral" PROVISION_HTML_FONT_NAME R"rawliteral(; src: url(')rawliteral" PROVISION_HTML_FONT_FILE R"rawliteral(') format('truetype'); font-weight:100 900; font-style:normal;}
       :root {
         --card-background: #ffffff;
         --background-color: #f9f9f9;
@@ -28,7 +41,7 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
       }
 
       * {
-        font-family: Poppins, sans-serif;
+        font-family: )rawliteral" PROVISION_HTML_FONT_FAMILY R"rawliteral(;
         color: var(--font-color);
       }
 
@@ -486,13 +499,43 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
           <div id="error-code-input">
             <input
               type="text"
-              name="code"
+              name="code1"
               id="code"
               class="textinput"
               placeholder=""
             />
           </div>
           <div id="error-code-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock2" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code2" for="code2"></label>
+          </div>
+          <div id="error-code2-input">
+            <input
+              type="text"
+              name="code2"
+              id="code2"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code2-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock3" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code3" for="code3"></label>
+          </div>
+          <div id="error-code3-input">
+            <input
+              type="text"
+              name="code3"
+              id="code3"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code3-message" class="error-message"></div>
         </div>
         <div class="container">
           <button
@@ -537,11 +580,15 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
       const table = document.getElementById("table-body");
       const form = document.getElementById("network_form");
       const code_listener = document.getElementById("code");
+      const code_listener2 = document.getElementById("code2");
+      const code_listener3 = document.getElementById("code3");
       const ssid_listener = document.getElementById("ssid");
       const password_listener = document.getElementById("password");
 
       form.addEventListener("submit", submitForm);
       code_listener.addEventListener("input", updateValue);
+      code_listener2.addEventListener("input", updateValue);
+      code_listener3.addEventListener("input", updateValue);
       ssid_listener.addEventListener("input", updateValue);
       password_listener.addEventListener("input", updateValue);
 
@@ -569,22 +616,40 @@ static constexpr const char index_html8[] PROGMEM =
 // INPUT_LENGHT
 static constexpr const char index_html9[] PROGMEM =
     R"rawliteral(;
+
+      const input_name_text2 = `)rawliteral";
+// INPUT_NAME2
+static constexpr const char index_html10[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght2 = )rawliteral";
+// INPUT_LENGHT2
+static constexpr const char index_html11[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text3 = `)rawliteral";
+// INPUT_NAME3
+static constexpr const char index_html12[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght3 = )rawliteral";
+// INPUT_LENGHT3
+static constexpr const char index_html13[] PROGMEM =
+    R"rawliteral(;
       const connection_successful_text = `)rawliteral";
 // CONNECTION_SUCCESFUL
-static constexpr const char index_html10[] PROGMEM =
+static constexpr const char index_html14[] PROGMEM =
     R"rawliteral(`;
       const footer_text = `)rawliteral";
 // FOOTER_TEXT
-static constexpr const char index_html11[] PROGMEM =
+static constexpr const char index_html15[] PROGMEM =
     R"rawliteral(`;
       const reset_confirmation_text = `)rawliteral";
 // RESET_CONFIRMATION_TEXT
 
-static constexpr const char index_html12[] PROGMEM =
+static constexpr const char index_html16[] PROGMEM =
     R"rawliteral(`;
       const reset_show = )rawliteral";
 // RESET_SHOW
-static constexpr const char index_html13[] PROGMEM =
+static constexpr const char index_html17[] PROGMEM =
     R"rawliteral(;
     
       window.addEventListener("DOMContentLoaded", (event) => {
@@ -594,10 +659,20 @@ static constexpr const char index_html13[] PROGMEM =
         let infoParagraph = document.getElementById("info-text");
         infoParagraph.textContent = title_info;
 
-        let codeInput = document.getElementById("code");
-        codeInput.setAttribute("maxlength", input_lenght);
-        codeInput.placeholder = input_name_text;
+        let codeInput1 = document.getElementById("code");
+        codeInput1.setAttribute("maxlength", input_lenght);
+        codeInput1.placeholder = input_name_text;
         document.getElementById("label-code").textContent = input_name_text;
+
+        let codeInput2 = document.getElementById("code2");
+        codeInput2.setAttribute("maxlength", input_lenght2);
+        codeInput2.placeholder = input_name_text2;
+        document.getElementById("label-code2").textContent = input_name_text2;
+
+        let codeInput3 = document.getElementById("code3");
+        codeInput3.setAttribute("maxlength", input_lenght3);
+        codeInput3.placeholder = input_name_text3;
+        document.getElementById("label-code3").textContent = input_name_text3;
 
         document.getElementById("copyright").textContent = footer_text;
 
@@ -633,7 +708,7 @@ static constexpr const char index_html13[] PROGMEM =
       }
 
       function resetErrors() {
-        ["submit", "code", "password", "ssid"].forEach((field) => {
+        ["submit", "code", "code2", "code3", "password", "ssid"].forEach((field) => {
           showError(field, "", false);
         });
       }
@@ -670,6 +745,34 @@ static constexpr const char index_html13[] PROGMEM =
               }
               if (code_listener.value.length > input_lenght) {
                 return `${input_name_text} can be up to ${input_lenght} characters`;
+               }
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode2Visible(),
+            field: "code2",
+            message: (() => {
+              if (!code_listener2.value) {
+                return `${input_name_text2} is required`;
+              }
+              if (code_listener2.value.length > input_lenght2) {
+                return `${input_name_text2} can be up to ${input_lenght2} characters`;
+               }
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode3Visible(),
+            field: "code3",
+            message: (() => {
+              if (!code_listener3.value) {
+                return `${input_name_text3} is required`;
+              }
+              if (code_listener3.value.length > input_lenght3) {
+                return `${input_name_text3} can be up to ${input_lenght3} characters`;
                }
               }
               return null;
@@ -718,7 +821,13 @@ static constexpr const char index_html13[] PROGMEM =
         }
 
         if (isCodeVisible()) {
-          payload.code = code_listener.value;
+          payload.code1 = code_listener.value;
+        }
+        if (isCode2Visible()) {
+          payload.code2 = code_listener2.value;
+        }
+        if (isCode3Visible()) {
+          payload.code3 = code_listener3.value;
         }
 
         fetch("/configure", {
@@ -736,6 +845,10 @@ static constexpr const char index_html13[] PROGMEM =
             } else {
               if (jsonResponse.reason === "code") {
                 showError("code", `Invalid ${input_name_text}`, true);
+              } else if (jsonResponse.reason === "code2") {
+                showError("code2", `Invalid ${input_name_text2}`, true);
+              } else if (jsonResponse.reason === "code3") {
+                showError("code3", `Invalid ${input_name_text3}`, true);
               } else if (
                 jsonResponse.reason === "ssid" &&
                 payload.password &&
@@ -819,7 +932,9 @@ static constexpr const char index_html13[] PROGMEM =
             jsonResponse.network.forEach(({ ssid, authmode, rssi }) =>
               addTableRow(ssid, authmode, rssi)
             );
-            showcodeField(jsonResponse.show_code);
+            showcodeField(jsonResponse.show_code1,
+                          jsonResponse.show_code2,
+                          jsonResponse.show_code3);
           })
           .catch(() => {
             console.error("Error on Refresh");
@@ -868,8 +983,14 @@ static constexpr const char index_html13[] PROGMEM =
           : "none";
       }
 
-      function showcodeField(state) {
-        document.getElementById("codeinputBlock").style.display = state
+      function showcodeField(state1, state2, state3) {
+        document.getElementById("codeinputBlock").style.display = state1
+          ? ""
+          : "none";
+        document.getElementById("codeinputBlock2").style.display = state2
+          ? ""
+          : "none";
+        document.getElementById("codeinputBlock3").style.display = state3
           ? ""
           : "none";
       }
@@ -887,6 +1008,16 @@ static constexpr const char index_html13[] PROGMEM =
 
       function isCodeVisible() {
         return document.getElementById("codeinputBlock").style.display === ""
+          ? true
+          : false;
+      }
+      function isCode2Visible() {
+        return document.getElementById("codeinputBlock2").style.display === ""
+          ? true
+          : false;
+      }
+      function isCode3Visible() {
+        return document.getElementById("codeinputBlock3").style.display === ""
           ? true
           : false;
       }

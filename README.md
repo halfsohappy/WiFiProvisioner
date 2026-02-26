@@ -55,13 +55,27 @@ void setup() {
   provisioner.getConfig().SHOW_RESET_FIELD = false; // No reset field
 
   // Set the success callback
-  provisioner.onSuccess(
-      [](const char *ssid, const char *password, const char *input) {
-        Serial.printf("Provisioning successful! Connected to SSID: %s\n", ssid);
-        if (password) {
-          Serial.printf("Password: %s\n", password);
-        }
-      });
+    provisioner.onSuccess(
+        [](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
+          Serial.printf("Provisioning successful! Connected to SSID: %s
+", ssid);
+          if (password) {
+            Serial.printf("Password: %s
+", password);
+          }
+          if (input1) {
+            Serial.printf("Input1: %s
+", input1);
+          }
+          if (input2) {
+            Serial.printf("Input2: %s
+", input2);
+          }
+          if (input3) {
+            Serial.printf("Input3: %s
+", input3);
+          }
+        });
 
   // Start provisioning
   provisioner.startProvisioning();
@@ -111,6 +125,48 @@ WiFiProvisioner provisioner;
 provisioner.getConfig().AP_NAME = "UpdatedAP";
 provisioner.getConfig().SHOW_INPUT_FIELD = true;
 ```
+
+## PlatformIO (SPIFFS / LittleFS upload)
+
+If you use PlatformIO, your `data/` folder (already present in this repository) can be uploaded to the ESP32 flash filesystem so the captive portal can serve the bundled font.
+
+- Place files you want in SPIFFS under the `data/` folder (e.g. `data/playwrite.ttf`).
+- Create a `platformio.ini` for your project (see `platformio.ini.example`).
+- Upload the data partition with:
+
+```bash
+# from the project root
+platformio run --target uploadfs
+```
+
+If `platformio` isn't in your PATH you can use the `pio` CLI shipped with PlatformIO Core instead:
+
+```bash
+pio run --target uploadfs
+```
+
+You can also use the helper script included in `scripts/upload_data_pio.sh`.
+
+### Changing the bundled font file
+
+If you rename the font file or want to use a different filename, update the
+define in `src/internal/provision_html.h` so the web server serves the correct
+path. For example, to change the path to `/myfont.ttf` edit the define:
+
+```cpp
+// in src/internal/provision_html.h
+#undef PROVISION_HTML_FONT_FILE
+#define PROVISION_HTML_FONT_FILE "/myfont.ttf"
+```
+
+Then place your font file in `data/` (e.g. `data/myfont.ttf`) and upload the
+data partition again:
+
+```bash
+platformio run --target uploadfs
+```
+
+The captive portal will then load the font from the new path at runtime.
 
 #### `bool startProvisioning()`
 Starts the provisioning process by setting up the device in Access Point (AP) mode with a captive portal for Wi-Fi configuration.
@@ -190,26 +246,34 @@ Invoked after the device has been successfully connected to the Wi-Fi network an
 
 - Use this callback to store Wi-Fi credentials and input details.
 
-**Parameters**:
-- `const char* ssid`: The SSID of the connected Wi-Fi network.
-- `const char* password`: The password for the Wi-Fi network (or `nullptr` for open networks).
-- `const char* input`: The user-provided input (or `nullptr` if the input field is disabled).
+  **Parameters**:
+  - `const char* ssid`: The SSID of the connected Wi-Fi network.
+  - `const char* password`: The password for the Wi-Fi network (or `nullptr` for open networks).
+  - `const char* input1`: The first user-provided input (or `nullptr` if disabled).
+  - `const char* input2`: The second user-provided input (or `nullptr` if disabled).
+  - `const char* input3`: The third user-provided input (or `nullptr` if disabled).
+  Example:
+  ```cpp
+  provisioner.onSuccess([](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
 
-Example:
-```cpp
-provisioner.onSuccess([](const char *ssid, const char *password, const char *input) {
   Serial.printf("Provisioning successful! SSID: %s\n", ssid);
   preferences.begin("wifi-provision", false);
-  // Store the credentials and API key in preferences
+  // Store the credentials and any additional inputs in preferences
   preferences.putString("ssid", String(ssid));
   if (password) {
     preferences.putString("password", String(password));
   }
-  if (input) {
-    preferences.putString("apikey", String(input));
+  if (input1) {
+    preferences.putString("apikey", String(input1));
+  }
+  if (input2) {
+    preferences.putString("deviceid", String(input2));
+  }
+  if (input3) {
+    preferences.putString("secret", String(input3));
   }
   preferences.end();
-  Serial.println("Credentials and API key saved.");
+  Serial.println("Credentials and inputs saved.");
 });
 ```
 
@@ -231,9 +295,15 @@ You can customize various aspects of the library, such as the HTML content, inpu
 | `FOOTER_TEXT`             | Footer text displayed at the bottom of the page |
 | `CONNECTION_SUCCESSFUL`   | Success message shown after successful connection |
 | `RESET_CONFIRMATION_TEXT` | Confirmation text for resetting the device      |
-| `INPUT_TEXT`              | Label text for the additional input field       |
-| `INPUT_LENGTH`            | Maximum length for the additional input field   |
-| `SHOW_INPUT_FIELD`        | Whether to display the additional input field   |
+| `INPUT_TEXT`              | Label text for the first additional input field       |
+| `INPUT_LENGTH`            | Maximum length for the first additional input field   |
+| `SHOW_INPUT_FIELD`        | Whether to display the first additional input field   |
+| `INPUT_TEXT_2`            | Label text for the second additional input field      |
+| `INPUT_LENGTH_2`          | Maximum length for the second additional input field  |
+| `SHOW_INPUT_FIELD_2`      | Whether to display the second additional input field  |
+| `INPUT_TEXT_3`            | Label text for the third additional input field       |
+| `INPUT_LENGTH_3`          | Maximum length for the third additional input field   |
+| `SHOW_INPUT_FIELD_3`      | Whether to display the third additional input field   |
 | `SHOW_RESET_FIELD`        | Whether to display the factory reset option     |
 
 ### Default Values
@@ -251,6 +321,12 @@ You can customize various aspects of the library, such as the HTML content, inpu
 - **`INPUT_TEXT`**: `"Device Key"`  
 - **`INPUT_LENGTH`**: `4`  
 - **`SHOW_INPUT_FIELD`**: `false`  
+- **`INPUT_TEXT_2`**: ``  
+- **`INPUT_LENGTH_2`**: `0`  
+- **`SHOW_INPUT_FIELD_2`**: `false`  
+- **`INPUT_TEXT_3`**: ``  
+- **`INPUT_LENGTH_3`**: `0`  
+- **`SHOW_INPUT_FIELD_3`**: `false`
 - **`SHOW_RESET_FIELD`**: `true`  
   
 ### Customization Examples
@@ -273,7 +349,11 @@ WiFiProvisioner::Config customConfig(
     "Reset all?",                    // Reset Confirmation Text
     "Enter Key:",                    // Input Field Label
     6,                               // Input Field Length
-    true,                            // Show Input Field
+    "Second Key",                  // Second Input Label
+    8,                               // Second Input Length
+    "Third Key",                   // Third Input Label
+    12,                              // Third Input Length
+    true,                            // Show Input Field (first)
     true                             // Show Reset Field
 );
 WiFiProvisioner provisioner(customConfig);
@@ -282,7 +362,7 @@ WiFiProvisioner provisioner(customConfig);
 WiFiProvisioner provisioner(
     {"CustomAP", "Custom Title", "darkblue", "<custom_svg>", "Custom Project",
       "Custom Setup", "Custom Information", "Custom Footer", "Success Message",
-      "Are you sure?", "Custom Key", 10, true, false});
+      "Are you sure?", "Custom Key", 10, "Second Key", 8, "Third Key", 12, true, false});
 ```
 
 
@@ -319,14 +399,28 @@ void setup() {
   provisioner.getConfig().SHOW_INPUT_FIELD = false; // No additional input field
   provisioner.getConfig().SHOW_RESET_FIELD = false; // No reset field
 
-  // Set the success callback
-  provisioner.onSuccess(
-      [](const char *ssid, const char *password, const char *input) {
-        Serial.printf("Provisioning successful! Connected to SSID: %s\n", ssid);
-        if (password) {
-          Serial.printf("Password: %s\n", password);
-        }
-      });
+    // Set the success callback
+    provisioner.onSuccess(
+        [](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
+          Serial.printf("Provisioning successful! Connected to SSID: %s
+", ssid);
+          if (password) {
+            Serial.printf("Password: %s
+", password);
+          }
+          if (input1) {
+            Serial.printf("Input1: %s
+", input1);
+          }
+          if (input2) {
+            Serial.printf("Input2: %s
+", input2);
+          }
+          if (input3) {
+            Serial.printf("Input3: %s
+", input3);
+          }
+        });
 
   // Start provisioning
   provisioner.startProvisioning();
@@ -359,6 +453,10 @@ void setup() {
       "API key.", // Reset Confirmation Text
       "API Key",  // Input Field Text
       4,          // Input Field Length
+      "Device ID",  // Second Input Text
+      6,          // Second Input Length
+      "Secret",  // Third Input Text
+      12,         // Third Input Length
       true,       // Show Input Field
       true        // Show Reset Field
   );
@@ -368,20 +466,28 @@ void setup() {
 
   // Set up callbacks
   provisioner.onProvision([]() { Serial.println("Provisioning started."); })
-      .onInputCheck([](const char *input) -> bool {
-        Serial.printf("Checking if input code equals to 1234: %s\n", input);
-        return strcmp(input, "1234") == 0; // Validate input
+      .onInputCheck([](const char *input1, const char *input2, const char *input3) -> bool {
+        if (input1 && strcmp(input1, "1234") != 0) return false;
+        if (input2 && strlen(input2) != 6) return false;
+        if (input3 && strlen(input3) != 12) return false;
+        return true;
       })
-      .onSuccess([](const char *ssid, const char *password, const char *input) {
-        Serial.printf("Connected to SSID: %s\n", ssid);
-        if (password) {
-          Serial.printf("Password: %s\n", password);
-        }
-        if (input) {
-          Serial.printf("Input: %s\n", input);
-        }
-        Serial.println("Provisioning completed successfully!");
-      })
+        .onSuccess([](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
+          Serial.printf("Connected to SSID: %s\n", ssid);
+          if (password) {
+            Serial.printf("Password: %s\n", password);
+          }
+          if (input1) {
+            Serial.printf("Input1: %s\n", input1);
+          }
+          if (input2) {
+            Serial.printf("Input2: %s\n", input2);
+          }
+          if (input3) {
+            Serial.printf("Input3: %s\n", input3);
+          }
+          Serial.println("Provisioning completed successfully!");
+        })
       .onFactoryReset([]() { Serial.println("Factory reset triggered!"); });
 
   // Start provisioning
@@ -409,7 +515,10 @@ WiFiProvisioner provisioner(
      "connection.",
      "This action will erase all stored settings, including "
      "API key.",
-     "API Key", 8, false, true});
+     "API Key", 8,
+     "Device ID", 6,
+     "Secret", 12,
+     false, true});
 
 Preferences preferences;
 
@@ -454,19 +563,27 @@ void setup() {
   provisioner
       .onProvision([]() {
         preferences.begin("wifi-provision", true);
-        String savedAPIKey = preferences.getString("apikey", "");
-        if (!savedAPIKey.isEmpty()) {
-          provisioner.getConfig().SHOW_INPUT_FIELD = false;
-          Serial.println("API key exists. Input field hidden.");
-        } else {
-          provisioner.getConfig().SHOW_INPUT_FIELD = true;
-          Serial.println("No API key found. Input field shown.");
-        }
+        // hide/show based on stored values
+        provisioner.getConfig().SHOW_INPUT_FIELD = !preferences.getString("apikey", "").isEmpty() ? false : true;
+        provisioner.getConfig().SHOW_INPUT_FIELD2 = !preferences.getString("deviceid", "").isEmpty() ? false : true;
+        provisioner.getConfig().SHOW_INPUT_FIELD3 = !preferences.getString("secret", "").isEmpty() ? false : true;
+        Serial.println("Provision callback: adjusted visibility based on preferences.");
         preferences.end();
       })
-      .onInputCheck([](const char *input) -> bool {
-        Serial.printf("Validating API Key: %s\n", input);
-        return strlen(input) == 8;
+      .onInputCheck([](const char *input1, const char *input2, const char *input3) -> bool {
+        if (input1) {
+          Serial.printf("Validating API Key: %s\n", input1);
+          if (strlen(input1) != 8) return false;
+        }
+        if (input2) {
+          Serial.printf("Validating Device ID: %s\n", input2);
+          if (strlen(input2) != 6) return false;
+        }
+        if (input3) {
+          Serial.printf("Validating Secret: %s\n", input3);
+          if (strlen(input3) != 12) return false;
+        }
+        return true;
       })
       .onFactoryReset([]() {
         preferences.begin("wifi-provision", false);
@@ -474,19 +591,26 @@ void setup() {
         preferences.clear(); // Clear all stored credentials and API key
         preferences.end();
       })
-      .onSuccess([](const char *ssid, const char *password, const char *input) {
-        Serial.printf("Provisioning successful! SSID: %s\n", ssid);
-        preferences.begin("wifi-provision", false);
-        // Store the credentials and API key in preferences
-        preferences.putString("ssid", String(ssid));
-        if (password) {
-          preferences.putString("password", String(password));
-        }
-        if (input) {
-          preferences.putString("apikey", String(input));
-        }
-        preferences.end();
-        Serial.println("Credentials and API key saved.");
+        .onSuccess([](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
+          Serial.printf("Provisioning successful! SSID: %s
+", ssid);
+          preferences.begin("wifi-provision", false);
+          // Store the credentials and API key in preferences
+          preferences.putString("ssid", String(ssid));
+          if (password) {
+            preferences.putString("password", String(password));
+          }
+          if (input1) {
+            preferences.putString("apikey", String(input1));
+          }
+          if (input2) {
+            preferences.putString("deviceid", String(input2));
+          }
+          if (input3) {
+            preferences.putString("secret", String(input3));
+          }
+        });
+        // Note: the rest of the setup callback continues below as in the full example
       });
 
   if (!connectToWiFi()) {

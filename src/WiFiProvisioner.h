@@ -20,9 +20,19 @@ public:
     const char *FOOTER_TEXT;             // Footer text
     const char *CONNECTION_SUCCESSFUL;   // Message for a successful connection
     const char *RESET_CONFIRMATION_TEXT; // Factory reset confirmation text
-    const char *INPUT_TEXT;              // Text for additional input field
-    int INPUT_LENGTH;                    // Length for additional input field
-    bool SHOW_INPUT_FIELD;               // Whether to show an input field
+    // Text for the first additional input field
+    const char *INPUT_TEXT;              
+    int INPUT_LENGTH;                    // Length for the first additional input field
+    bool SHOW_INPUT_FIELD;               // Whether to show the first additional input field
+
+    // Support two additional custom input fields
+    const char *INPUT_TEXT_2;            // Text for second input field
+    int INPUT_LENGTH_2;                  // Length for second input field
+    bool SHOW_INPUT_FIELD_2;             // Whether to show the second input field
+
+    const char *INPUT_TEXT_3;            // Text for third input field
+    int INPUT_LENGTH_3;                  // Length for third input field
+    bool SHOW_INPUT_FIELD_3;             // Whether to show the third input field
     bool SHOW_RESET_FIELD;               // Whether to show a reset field
 
     Config(
@@ -44,13 +54,20 @@ public:
             "Your device is now provisioned and ready to use.",
         const char *resetConfirmationText = "This process cannot be undone.",
         const char *inputText = "Device Key", int inputLength = 4,
-        bool showInputField = false, bool showResetField = true);
+        bool showInputField = false,
+        const char *inputText2 = "", int inputLength2 = 0,
+        bool showInputField2 = false,
+        const char *inputText3 = "", int inputLength3 = 0,
+        bool showInputField3 = false,
+        bool showResetField = true);
   };
 
   using ProvisionCallback = std::function<void()>;
-  using InputCheckCallback = std::function<bool(const char *)>;
+  // New callback signatures include all three user inputs (any may be nullptr
+  // if not enabled).
+  using InputCheckCallback = std::function<bool(const char *, const char *, const char *)>;
   using SuccessCallback =
-      std::function<void(const char *, const char *, const char *)>;
+      std::function<void(const char *, const char *, const char *, const char *, const char *)>;
   using FactoryResetCallback = std::function<void()>;
 
   explicit WiFiProvisioner(const Config &config = Config());
