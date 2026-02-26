@@ -94,10 +94,31 @@ void networkScan(JsonDocument &doc) {
                              "Starting Network Scan...");
   int n = WiFi.scanNetworks(false, false);
   if (n) {
+    // keep track of SSIDs we've already added, since multiple APs can
+    // broadcast the same name and the UI doesn't need duplicates.
+    std::vector<String> seen;
+    seen.reserve(n);
+
     for (int i = 0; i < n; ++i) {
+      String ssid = WiFi.SSID(i);
+      if (ssid.isEmpty()) {
+        continue; // skip unnamed networks
+      }
+      bool duplicate = false;
+      for (const auto &s : seen) {
+        if (s == ssid) {
+          duplicate = true;
+          break;
+        }
+      }
+      if (duplicate) {
+        continue;
+      }
+      seen.push_back(ssid);
+
       JsonObject network = networks.add<JsonObject>();
       network["rssi"] = convertRRSItoLevel(WiFi.RSSI(i));
-      network["ssid"] = WiFi.SSID(i);
+      network["ssid"] = ssid;
       network["authmode"] = (WiFi.encryptionType(i) == WIFI_AUTH_OPEN) ? 0 : 1;
     }
   }
@@ -155,7 +176,7 @@ void sendHeader(WiFiClient &client, int statusCode, const char *contentType,
  * - `HTML_TITLE`: "Welcome to Wi-Fi Provision" - The title of the
  * provisioning web page.
  *
- * - `THEME_COLOR`: "dodgerblue" - The primary theme color used in the
+ * - `THEME_COLOR`: "#E4CBFF" - The primary theme color used in the
  * provisioning UI.
  *
  * - `SVG_LOGO`: An SVG logo to display on the web page.
@@ -694,7 +715,7 @@ void WiFiProvisioner::handleRootRequest() {
   client.write_P(index_html16, strlen_P(index_html16));
   client.print(showResetField);
   client.write_P(index_html17, strlen_P(index_html17));
-  client.flush();
+  client.clear();
   client.stop();
 }
 
@@ -737,7 +758,7 @@ void WiFiProvisioner::handleUpdateRequest() {
   sendHeader(client, 200, "application/json", measureJson(doc));
   serializeJson(doc, client);
 
-  client.flush();
+  client.clear();
   client.stop();
 }
 

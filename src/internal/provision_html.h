@@ -8,7 +8,8 @@
 #endif
 
 #ifndef PROVISION_HTML_FONT_NAME
-#define PROVISION_HTML_FONT_NAME PlaywriteDEGrund
+// include quotes so the name expands to a proper string literal
+#define PROVISION_HTML_FONT_NAME "PlaywriteDEGrund"
 #endif
 
 #ifndef PROVISION_HTML_FONT_FILE
@@ -438,7 +439,7 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
           </div>
         </div>
         <div class="container" id="hiddenNetwork" style="display: none">
-          <label>Network SSID</label>
+          <label for="ssid">Network SSID</label>
           <div id="error-ssid-input">
             <input
               type="text"
@@ -745,7 +746,6 @@ static constexpr const char index_html17[] PROGMEM =
               }
               if (code_listener.value.length > input_lenght) {
                 return `${input_name_text} can be up to ${input_lenght} characters`;
-               }
               }
               return null;
             })(),
@@ -759,7 +759,6 @@ static constexpr const char index_html17[] PROGMEM =
               }
               if (code_listener2.value.length > input_lenght2) {
                 return `${input_name_text2} can be up to ${input_lenght2} characters`;
-               }
               }
               return null;
             })(),
@@ -773,7 +772,6 @@ static constexpr const char index_html17[] PROGMEM =
               }
               if (code_listener3.value.length > input_lenght3) {
                 return `${input_name_text3} can be up to ${input_lenght3} characters`;
-               }
               }
               return null;
             })(),

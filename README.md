@@ -310,7 +310,7 @@ You can customize various aspects of the library, such as the HTML content, inpu
 
 - **`AP_NAME`**: `"ESP32 Wi-Fi Provisioning"`  
 - **`HTML_TITLE`**: `"Welcome to Wi-Fi Provision"`  
-- **`THEME_COLOR`**: `"dodgerblue"`  
+- **`THEME_COLOR`**: `"#E4CBFF"`
 - **`SVG_LOGO`**: A default SVG logo  
 - **`PROJECT_TITLE`**: `"WiFi Provisioner"`  
 - **`PROJECT_SUB_TITLE`**: `"Device Setup"`  

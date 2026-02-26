@@ -38,7 +38,7 @@ public:
     Config(
         const char *apName = "ESP32 Wi-Fi Provisioning",
         const char *htmlTitle = "Welcome to Wi-Fi Provision",
-        const char *themeColor = "dodgerblue",
+        const char *themeColor = "#E4CBFF",
         const char *svgLogo = R"rawliteral(
           <svg xmlns="http://www.w3.org/2000/svg" width="5rem" height="5rem" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32">
             <path fill="var(--font-color)" d="M30 19h-4v-4h-2v9H8V8h9V6h-4V2h-2v4H8a2.002 2.002 0 0 0-2 2v3H2v2h4v6H2v2h4v3a2.002 2.002 0 0 0 2 2h3v4h2v-4h6v4h2v-4h3a2.003 2.003 0 0 0 2-2v-3h4Z"/>

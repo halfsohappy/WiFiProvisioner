@@ -12,7 +12,7 @@
         --card-background: #ffffff;
         --background-color: #f9f9f9;
         --font-color: #1a1f36;
-        --theme-color: dodgerblue;
+        --theme-color: #E4CBFF;
         --shadow-color: rgba(0, 0, 0, 0.1);
         --border-color: #cccccc;
       }
@@ -64,6 +64,7 @@
           --background: var(--card-background);
           -webkit-appearance: none;
           -moz-appearance: none;
+          appearance: none;
           -webkit-tap-highlight-color: transparent;
           height: 1.3125rem;
           vertical-align: middle;
@@ -415,7 +416,7 @@
           </div>
         </div>
         <div class="container" id="hiddenNetwork" style="display: none">
-          <label>Network SSID</label>
+          <label for="ssid">Network SSID</label>
           <div id="error-ssid-input">
             <input
               type="text"
