@@ -4,6 +4,7 @@
 #include <DNSServer.h>
 #include <WebServer.h>
 #include <WiFi.h>
+#include <SPIFFS.h>
 
 #define WIFI_PROVISIONER_LOG_DEBUG 0
 #define WIFI_PROVISIONER_LOG_INFO 1
@@ -430,6 +431,27 @@ bool WiFiProvisioner::startProvisioning() {
   _server->on("/configure", HTTP_POST,
               [this]() { this->handleConfigureRequest(); });
   _server->on("/update", [this]() { this->handleUpdateRequest(); });
+  _server->on(PROVISION_HTML_FONT_FILE, [this]() {
+    WiFiClient client = _server->client();
+    if (!SPIFFS.begin(true)) {
+      sendHeader(client, 500, "text/plain", 0);
+      return;
+    }
+    File f = SPIFFS.open(PROVISION_HTML_FONT_FILE, "r");
+    if (!f) {
+      sendHeader(client, 404, "text/plain", 0);
+      return;
+    }
+    size_t size = f.size();
+    sendHeader(client, 200, "font/ttf", size);
+    const size_t bufSize = 1024;
+    uint8_t buf[bufSize];
+    while (f.available()) {
+      size_t r = f.read(buf, bufSize);
+      client.write(buf, r);
+    }
+    f.close();
+  });
   _server->on("/generate_204", [this]() { this->handleRootRequest(); });
   _server->on("/fwlink", [this]() { this->handleRootRequest(); });
   _server->on("/factoryreset", HTTP_POST,

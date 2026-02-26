@@ -3,6 +3,18 @@
 
 #include <Arduino.h>
 
+#ifndef PROVISION_HTML_FONT_FAMILY
+#define PROVISION_HTML_FONT_FAMILY "\"PlaywriteDEGrund\", sans-serif"
+#endif
+
+#ifndef PROVISION_HTML_FONT_NAME
+#define PROVISION_HTML_FONT_NAME PlaywriteDEGrund
+#endif
+
+#ifndef PROVISION_HTML_FONT_FILE
+#define PROVISION_HTML_FONT_FILE "/playwrite.ttf"
+#endif
+
 static constexpr const char index_html1[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +28,7 @@ static constexpr const char index_html2[] PROGMEM = R"rawliteral(</title>
       content="width=device-width, initial-scale=1.0, maximum-scale=1"
     />
     <style>
+      @font-face{font-family: )rawliteral" PROVISION_HTML_FONT_NAME R"rawliteral(; src: url(')rawliteral" PROVISION_HTML_FONT_FILE R"rawliteral(') format('truetype'); font-weight:100 900; font-style:normal;}
       :root {
         --card-background: #ffffff;
         --background-color: #f9f9f9;
@@ -28,7 +41,7 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
       }
 
       * {
-        font-family: Poppins, sans-serif;
+        font-family: )rawliteral" PROVISION_HTML_FONT_FAMILY R"rawliteral(;
         color: var(--font-color);
       }
 

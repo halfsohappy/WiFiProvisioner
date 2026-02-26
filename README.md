@@ -126,6 +126,48 @@ provisioner.getConfig().AP_NAME = "UpdatedAP";
 provisioner.getConfig().SHOW_INPUT_FIELD = true;
 ```
 
+## PlatformIO (SPIFFS / LittleFS upload)
+
+If you use PlatformIO, your `data/` folder (already present in this repository) can be uploaded to the ESP32 flash filesystem so the captive portal can serve the bundled font.
+
+- Place files you want in SPIFFS under the `data/` folder (e.g. `data/playwrite.ttf`).
+- Create a `platformio.ini` for your project (see `platformio.ini.example`).
+- Upload the data partition with:
+
+```bash
+# from the project root
+platformio run --target uploadfs
+```
+
+If `platformio` isn't in your PATH you can use the `pio` CLI shipped with PlatformIO Core instead:
+
+```bash
+pio run --target uploadfs
+```
+
+You can also use the helper script included in `scripts/upload_data_pio.sh`.
+
+### Changing the bundled font file
+
+If you rename the font file or want to use a different filename, update the
+define in `src/internal/provision_html.h` so the web server serves the correct
+path. For example, to change the path to `/myfont.ttf` edit the define:
+
+```cpp
+// in src/internal/provision_html.h
+#undef PROVISION_HTML_FONT_FILE
+#define PROVISION_HTML_FONT_FILE "/myfont.ttf"
+```
+
+Then place your font file in `data/` (e.g. `data/myfont.ttf`) and upload the
+data partition again:
+
+```bash
+platformio run --target uploadfs
+```
+
+The captive portal will then load the font from the new path at runtime.
+
 #### `bool startProvisioning()`
 Starts the provisioning process by setting up the device in Access Point (AP) mode with a captive portal for Wi-Fi configuration.
 
