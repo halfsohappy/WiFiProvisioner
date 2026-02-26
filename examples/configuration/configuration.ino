@@ -20,6 +20,10 @@ void setup() {
       "API key.", // Reset Confirmation Text
       "API Key",  // Input Field Text
       4,          // Input Field Length
+      "Device ID",  // Second Input Text
+      6,          // Second Input Length
+      "Secret",  // Third Input Text
+      12,         // Third Input Length
       true,       // Show Input Field
       true        // Show Reset Field
   );
@@ -29,17 +33,26 @@ void setup() {
 
   // Set up callbacks
   provisioner.onProvision([]() { Serial.println("Provisioning started."); })
-      .onInputCheck([](const char *input) -> bool {
-        Serial.printf("Checking if input code equals to 1234: %s\n", input);
-        return strcmp(input, "1234") == 0; // Validate input
+      .onInputCheck([](const char *input1, const char *input2, const char *input3) -> bool {
+        // simple validations for demonstration
+        if (input1 && strcmp(input1, "1234") != 0) return false;
+        if (input2 && strlen(input2) != 6) return false;
+        if (input3 && strlen(input3) != 12) return false;
+        return true;
       })
-      .onSuccess([](const char *ssid, const char *password, const char *input) {
+      .onSuccess([](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
         Serial.printf("Connected to SSID: %s\n", ssid);
         if (password) {
           Serial.printf("Password: %s\n", password);
         }
-        if (input) {
-          Serial.printf("Input: %s\n", input);
+        if (input1) {
+          Serial.printf("Input1: %s\n", input1);
+        }
+        if (input2) {
+          Serial.printf("Input2: %s\n", input2);
+        }
+        if (input3) {
+          Serial.printf("Input3: %s\n", input3);
         }
         Serial.println("Provisioning completed successfully!");
       })
