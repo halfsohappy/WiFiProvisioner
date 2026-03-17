@@ -14,10 +14,10 @@ WiFiProvisioner provisioner(
      "connection.",
      "This action will erase all stored settings, including "
      "API key.",
-     "API Key", 8,
-     "Device ID", 6,
-     "Secret", 12,
-     false, true});
+     "API Key", 8, false,      // Input 1: text, max length, show initially
+     "Device ID", 6, false,    // Input 2: shown conditionally via onProvision
+     "Secret", 12, false,      // Input 3: shown conditionally via onProvision
+     true});
 
 Preferences preferences;
 
@@ -62,16 +62,19 @@ void setup() {
   provisioner
       .onProvision([]() {
         preferences.begin("wifi-provision", true);
-        String savedAPIKey = preferences.getString("apikey", "");
-        if (!savedAPIKey.isEmpty()) {
-          // hide or show additional fields based on stored values
-        provisioner.getConfig().SHOW_INPUT_FIELD = !preferences.getString("apikey", "").isEmpty() ? false : true;
-        provisioner.getConfig().SHOW_INPUT_FIELD2 = !preferences.getString("deviceid", "").isEmpty() ? false : true;
-        provisioner.getConfig().SHOW_INPUT_FIELD3 = !preferences.getString("secret", "").isEmpty() ? false : true;
+        // hide or show additional fields based on stored values
+        provisioner.getConfig().SHOW_INPUT_FIELD = preferences.getString("apikey", "").isEmpty() ? true : false;
+        provisioner.getConfig().SHOW_INPUT_FIELD_2 = preferences.getString("deviceid", "").isEmpty() ? true : false;
+        provisioner.getConfig().SHOW_INPUT_FIELD_3 = preferences.getString("secret", "").isEmpty() ? true : false;
         Serial.println("Provision callback: adjusted visibility based on preferences.");
         preferences.end();
       })
-      .onInputCheck([](const char *input1, const char *input2, const char *input3) -> bool {
+      .onInputCheck([](const char *input1, const char *input2, const char *input3,
+                       const char *input4, const char *input5, const char *input6,
+                       const char *input7, const char *input8, const char *input9,
+                       const char *input10, const char *input11, const char *input12,
+                       const char *input13, const char *input14, const char *input15,
+                       const char *input16) -> bool {
         // you can validate each field separately; return false to prevent submission
         if (input1) {
           Serial.printf("Validating API Key: %s\n", input1);
@@ -93,7 +96,13 @@ void setup() {
         preferences.clear(); // Clear all stored credentials and API key
         preferences.end();
       })
-      .onSuccess([](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
+      .onSuccess([](const char *ssid, const char *password,
+                    const char *input1, const char *input2, const char *input3,
+                    const char *input4, const char *input5, const char *input6,
+                    const char *input7, const char *input8, const char *input9,
+                    const char *input10, const char *input11, const char *input12,
+                    const char *input13, const char *input14, const char *input15,
+                    const char *input16) {
         Serial.printf("Provisioning successful! SSID: %s\n", ssid);
         preferences.begin("wifi-provision", false);
         // Store the credentials and API key in preferences

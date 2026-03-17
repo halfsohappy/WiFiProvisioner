@@ -538,6 +538,201 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
           </div>
           <div id="error-code3-message" class="error-message"></div>
         </div>
+        <div class="container" id="codeinputBlock4" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code4" for="code4"></label>
+          </div>
+          <div id="error-code4-input">
+            <input
+              type="text"
+              name="code4"
+              id="code4"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code4-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock5" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code5" for="code5"></label>
+          </div>
+          <div id="error-code5-input">
+            <input
+              type="text"
+              name="code5"
+              id="code5"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code5-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock6" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code6" for="code6"></label>
+          </div>
+          <div id="error-code6-input">
+            <input
+              type="text"
+              name="code6"
+              id="code6"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code6-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock7" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code7" for="code7"></label>
+          </div>
+          <div id="error-code7-input">
+            <input
+              type="text"
+              name="code7"
+              id="code7"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code7-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock8" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code8" for="code8"></label>
+          </div>
+          <div id="error-code8-input">
+            <input
+              type="text"
+              name="code8"
+              id="code8"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code8-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock9" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code9" for="code9"></label>
+          </div>
+          <div id="error-code9-input">
+            <input
+              type="text"
+              name="code9"
+              id="code9"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code9-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock10" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code10" for="code10"></label>
+          </div>
+          <div id="error-code10-input">
+            <input
+              type="text"
+              name="code10"
+              id="code10"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code10-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock11" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code11" for="code11"></label>
+          </div>
+          <div id="error-code11-input">
+            <input
+              type="text"
+              name="code11"
+              id="code11"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code11-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock12" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code12" for="code12"></label>
+          </div>
+          <div id="error-code12-input">
+            <input
+              type="text"
+              name="code12"
+              id="code12"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code12-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock13" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code13" for="code13"></label>
+          </div>
+          <div id="error-code13-input">
+            <input
+              type="text"
+              name="code13"
+              id="code13"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code13-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock14" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code14" for="code14"></label>
+          </div>
+          <div id="error-code14-input">
+            <input
+              type="text"
+              name="code14"
+              id="code14"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code14-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock15" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code15" for="code15"></label>
+          </div>
+          <div id="error-code15-input">
+            <input
+              type="text"
+              name="code15"
+              id="code15"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code15-message" class="error-message"></div>
+        </div>
+        <div class="container" id="codeinputBlock16" style="display: none">
+          <div style="text-align: center">
+            <label id="label-code16" for="code16"></label>
+          </div>
+          <div id="error-code16-input">
+            <input
+              type="text"
+              name="code16"
+              id="code16"
+              class="textinput"
+              placeholder=""
+            />
+          </div>
+          <div id="error-code16-message" class="error-message"></div>
+        </div>
         <div class="container">
           <button
             class="btn-process"
@@ -583,6 +778,19 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
       const code_listener = document.getElementById("code");
       const code_listener2 = document.getElementById("code2");
       const code_listener3 = document.getElementById("code3");
+      const code_listener4 = document.getElementById("code4");
+      const code_listener5 = document.getElementById("code5");
+      const code_listener6 = document.getElementById("code6");
+      const code_listener7 = document.getElementById("code7");
+      const code_listener8 = document.getElementById("code8");
+      const code_listener9 = document.getElementById("code9");
+      const code_listener10 = document.getElementById("code10");
+      const code_listener11 = document.getElementById("code11");
+      const code_listener12 = document.getElementById("code12");
+      const code_listener13 = document.getElementById("code13");
+      const code_listener14 = document.getElementById("code14");
+      const code_listener15 = document.getElementById("code15");
+      const code_listener16 = document.getElementById("code16");
       const ssid_listener = document.getElementById("ssid");
       const password_listener = document.getElementById("password");
 
@@ -590,6 +798,19 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
       code_listener.addEventListener("input", updateValue);
       code_listener2.addEventListener("input", updateValue);
       code_listener3.addEventListener("input", updateValue);
+      code_listener4.addEventListener("input", updateValue);
+      code_listener5.addEventListener("input", updateValue);
+      code_listener6.addEventListener("input", updateValue);
+      code_listener7.addEventListener("input", updateValue);
+      code_listener8.addEventListener("input", updateValue);
+      code_listener9.addEventListener("input", updateValue);
+      code_listener10.addEventListener("input", updateValue);
+      code_listener11.addEventListener("input", updateValue);
+      code_listener12.addEventListener("input", updateValue);
+      code_listener13.addEventListener("input", updateValue);
+      code_listener14.addEventListener("input", updateValue);
+      code_listener15.addEventListener("input", updateValue);
+      code_listener16.addEventListener("input", updateValue);
       ssid_listener.addEventListener("input", updateValue);
       password_listener.addEventListener("input", updateValue);
 
@@ -633,6 +854,123 @@ static constexpr const char index_html12[] PROGMEM =
     R"rawliteral(`;
       const input_lenght3 = )rawliteral";
 // INPUT_LENGHT3
+static constexpr const char index_html_in4a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text4 = `)rawliteral";
+// INPUT_NAME4
+static constexpr const char index_html_in4b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght4 = )rawliteral";
+// INPUT_LENGHT4
+static constexpr const char index_html_in5a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text5 = `)rawliteral";
+// INPUT_NAME5
+static constexpr const char index_html_in5b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght5 = )rawliteral";
+// INPUT_LENGHT5
+static constexpr const char index_html_in6a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text6 = `)rawliteral";
+// INPUT_NAME6
+static constexpr const char index_html_in6b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght6 = )rawliteral";
+// INPUT_LENGHT6
+static constexpr const char index_html_in7a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text7 = `)rawliteral";
+// INPUT_NAME7
+static constexpr const char index_html_in7b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght7 = )rawliteral";
+// INPUT_LENGHT7
+static constexpr const char index_html_in8a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text8 = `)rawliteral";
+// INPUT_NAME8
+static constexpr const char index_html_in8b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght8 = )rawliteral";
+// INPUT_LENGHT8
+static constexpr const char index_html_in9a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text9 = `)rawliteral";
+// INPUT_NAME9
+static constexpr const char index_html_in9b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght9 = )rawliteral";
+// INPUT_LENGHT9
+static constexpr const char index_html_in10a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text10 = `)rawliteral";
+// INPUT_NAME10
+static constexpr const char index_html_in10b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght10 = )rawliteral";
+// INPUT_LENGHT10
+static constexpr const char index_html_in11a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text11 = `)rawliteral";
+// INPUT_NAME11
+static constexpr const char index_html_in11b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght11 = )rawliteral";
+// INPUT_LENGHT11
+static constexpr const char index_html_in12a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text12 = `)rawliteral";
+// INPUT_NAME12
+static constexpr const char index_html_in12b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght12 = )rawliteral";
+// INPUT_LENGHT12
+static constexpr const char index_html_in13a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text13 = `)rawliteral";
+// INPUT_NAME13
+static constexpr const char index_html_in13b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght13 = )rawliteral";
+// INPUT_LENGHT13
+static constexpr const char index_html_in14a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text14 = `)rawliteral";
+// INPUT_NAME14
+static constexpr const char index_html_in14b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght14 = )rawliteral";
+// INPUT_LENGHT14
+static constexpr const char index_html_in15a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text15 = `)rawliteral";
+// INPUT_NAME15
+static constexpr const char index_html_in15b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght15 = )rawliteral";
+// INPUT_LENGHT15
+static constexpr const char index_html_in16a[] PROGMEM =
+    R"rawliteral(;
+
+      const input_name_text16 = `)rawliteral";
+// INPUT_NAME16
+static constexpr const char index_html_in16b[] PROGMEM =
+    R"rawliteral(`;
+      const input_lenght16 = )rawliteral";
+// INPUT_LENGHT16
 static constexpr const char index_html13[] PROGMEM =
     R"rawliteral(;
       const connection_successful_text = `)rawliteral";
@@ -675,6 +1013,71 @@ static constexpr const char index_html17[] PROGMEM =
         codeInput3.placeholder = input_name_text3;
         document.getElementById("label-code3").textContent = input_name_text3;
 
+        let codeInput4 = document.getElementById("code4");
+        codeInput4.setAttribute("maxlength", input_lenght4);
+        codeInput4.placeholder = input_name_text4;
+        document.getElementById("label-code4").textContent = input_name_text4;
+
+        let codeInput5 = document.getElementById("code5");
+        codeInput5.setAttribute("maxlength", input_lenght5);
+        codeInput5.placeholder = input_name_text5;
+        document.getElementById("label-code5").textContent = input_name_text5;
+
+        let codeInput6 = document.getElementById("code6");
+        codeInput6.setAttribute("maxlength", input_lenght6);
+        codeInput6.placeholder = input_name_text6;
+        document.getElementById("label-code6").textContent = input_name_text6;
+
+        let codeInput7 = document.getElementById("code7");
+        codeInput7.setAttribute("maxlength", input_lenght7);
+        codeInput7.placeholder = input_name_text7;
+        document.getElementById("label-code7").textContent = input_name_text7;
+
+        let codeInput8 = document.getElementById("code8");
+        codeInput8.setAttribute("maxlength", input_lenght8);
+        codeInput8.placeholder = input_name_text8;
+        document.getElementById("label-code8").textContent = input_name_text8;
+
+        let codeInput9 = document.getElementById("code9");
+        codeInput9.setAttribute("maxlength", input_lenght9);
+        codeInput9.placeholder = input_name_text9;
+        document.getElementById("label-code9").textContent = input_name_text9;
+
+        let codeInput10 = document.getElementById("code10");
+        codeInput10.setAttribute("maxlength", input_lenght10);
+        codeInput10.placeholder = input_name_text10;
+        document.getElementById("label-code10").textContent = input_name_text10;
+
+        let codeInput11 = document.getElementById("code11");
+        codeInput11.setAttribute("maxlength", input_lenght11);
+        codeInput11.placeholder = input_name_text11;
+        document.getElementById("label-code11").textContent = input_name_text11;
+
+        let codeInput12 = document.getElementById("code12");
+        codeInput12.setAttribute("maxlength", input_lenght12);
+        codeInput12.placeholder = input_name_text12;
+        document.getElementById("label-code12").textContent = input_name_text12;
+
+        let codeInput13 = document.getElementById("code13");
+        codeInput13.setAttribute("maxlength", input_lenght13);
+        codeInput13.placeholder = input_name_text13;
+        document.getElementById("label-code13").textContent = input_name_text13;
+
+        let codeInput14 = document.getElementById("code14");
+        codeInput14.setAttribute("maxlength", input_lenght14);
+        codeInput14.placeholder = input_name_text14;
+        document.getElementById("label-code14").textContent = input_name_text14;
+
+        let codeInput15 = document.getElementById("code15");
+        codeInput15.setAttribute("maxlength", input_lenght15);
+        codeInput15.placeholder = input_name_text15;
+        document.getElementById("label-code15").textContent = input_name_text15;
+
+        let codeInput16 = document.getElementById("code16");
+        codeInput16.setAttribute("maxlength", input_lenght16);
+        codeInput16.placeholder = input_name_text16;
+        document.getElementById("label-code16").textContent = input_name_text16;
+
         document.getElementById("copyright").textContent = footer_text;
 
         if (!reset_show) {
@@ -709,7 +1112,9 @@ static constexpr const char index_html17[] PROGMEM =
       }
 
       function resetErrors() {
-        ["submit", "code", "code2", "code3", "password", "ssid"].forEach((field) => {
+        ["submit", "code", "code2", "code3", "code4", "code5", "code6",
+         "code7", "code8", "code9", "code10", "code11", "code12",
+         "code13", "code14", "code15", "code16", "password", "ssid"].forEach((field) => {
           showError(field, "", false);
         });
       }
@@ -777,6 +1182,175 @@ static constexpr const char index_html17[] PROGMEM =
             })(),
           },
           {
+            condition: isCode4Visible(),
+            field: "code4",
+            message: (() => {
+              if (!code_listener4.value) {
+                return `${input_name_text4} is required`;
+              }
+              if (code_listener4.value.length > input_lenght4) {
+                return `${input_name_text4} can be up to ${input_lenght4} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode5Visible(),
+            field: "code5",
+            message: (() => {
+              if (!code_listener5.value) {
+                return `${input_name_text5} is required`;
+              }
+              if (code_listener5.value.length > input_lenght5) {
+                return `${input_name_text5} can be up to ${input_lenght5} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode6Visible(),
+            field: "code6",
+            message: (() => {
+              if (!code_listener6.value) {
+                return `${input_name_text6} is required`;
+              }
+              if (code_listener6.value.length > input_lenght6) {
+                return `${input_name_text6} can be up to ${input_lenght6} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode7Visible(),
+            field: "code7",
+            message: (() => {
+              if (!code_listener7.value) {
+                return `${input_name_text7} is required`;
+              }
+              if (code_listener7.value.length > input_lenght7) {
+                return `${input_name_text7} can be up to ${input_lenght7} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode8Visible(),
+            field: "code8",
+            message: (() => {
+              if (!code_listener8.value) {
+                return `${input_name_text8} is required`;
+              }
+              if (code_listener8.value.length > input_lenght8) {
+                return `${input_name_text8} can be up to ${input_lenght8} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode9Visible(),
+            field: "code9",
+            message: (() => {
+              if (!code_listener9.value) {
+                return `${input_name_text9} is required`;
+              }
+              if (code_listener9.value.length > input_lenght9) {
+                return `${input_name_text9} can be up to ${input_lenght9} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode10Visible(),
+            field: "code10",
+            message: (() => {
+              if (!code_listener10.value) {
+                return `${input_name_text10} is required`;
+              }
+              if (code_listener10.value.length > input_lenght10) {
+                return `${input_name_text10} can be up to ${input_lenght10} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode11Visible(),
+            field: "code11",
+            message: (() => {
+              if (!code_listener11.value) {
+                return `${input_name_text11} is required`;
+              }
+              if (code_listener11.value.length > input_lenght11) {
+                return `${input_name_text11} can be up to ${input_lenght11} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode12Visible(),
+            field: "code12",
+            message: (() => {
+              if (!code_listener12.value) {
+                return `${input_name_text12} is required`;
+              }
+              if (code_listener12.value.length > input_lenght12) {
+                return `${input_name_text12} can be up to ${input_lenght12} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode13Visible(),
+            field: "code13",
+            message: (() => {
+              if (!code_listener13.value) {
+                return `${input_name_text13} is required`;
+              }
+              if (code_listener13.value.length > input_lenght13) {
+                return `${input_name_text13} can be up to ${input_lenght13} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode14Visible(),
+            field: "code14",
+            message: (() => {
+              if (!code_listener14.value) {
+                return `${input_name_text14} is required`;
+              }
+              if (code_listener14.value.length > input_lenght14) {
+                return `${input_name_text14} can be up to ${input_lenght14} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode15Visible(),
+            field: "code15",
+            message: (() => {
+              if (!code_listener15.value) {
+                return `${input_name_text15} is required`;
+              }
+              if (code_listener15.value.length > input_lenght15) {
+                return `${input_name_text15} can be up to ${input_lenght15} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
+            condition: isCode16Visible(),
+            field: "code16",
+            message: (() => {
+              if (!code_listener16.value) {
+                return `${input_name_text16} is required`;
+              }
+              if (code_listener16.value.length > input_lenght16) {
+                return `${input_name_text16} can be up to ${input_lenght16} characters`;
+              }
+              return null;
+            })(),
+          },
+          {
             condition: isSsidVisible() && !ssid_listener.value,
             field: "ssid",
             message: "SSID is required",
@@ -827,6 +1401,45 @@ static constexpr const char index_html17[] PROGMEM =
         if (isCode3Visible()) {
           payload.code3 = code_listener3.value;
         }
+        if (isCode4Visible()) {
+          payload.code4 = code_listener4.value;
+        }
+        if (isCode5Visible()) {
+          payload.code5 = code_listener5.value;
+        }
+        if (isCode6Visible()) {
+          payload.code6 = code_listener6.value;
+        }
+        if (isCode7Visible()) {
+          payload.code7 = code_listener7.value;
+        }
+        if (isCode8Visible()) {
+          payload.code8 = code_listener8.value;
+        }
+        if (isCode9Visible()) {
+          payload.code9 = code_listener9.value;
+        }
+        if (isCode10Visible()) {
+          payload.code10 = code_listener10.value;
+        }
+        if (isCode11Visible()) {
+          payload.code11 = code_listener11.value;
+        }
+        if (isCode12Visible()) {
+          payload.code12 = code_listener12.value;
+        }
+        if (isCode13Visible()) {
+          payload.code13 = code_listener13.value;
+        }
+        if (isCode14Visible()) {
+          payload.code14 = code_listener14.value;
+        }
+        if (isCode15Visible()) {
+          payload.code15 = code_listener15.value;
+        }
+        if (isCode16Visible()) {
+          payload.code16 = code_listener16.value;
+        }
 
         fetch("/configure", {
           method: "POST",
@@ -847,6 +1460,32 @@ static constexpr const char index_html17[] PROGMEM =
                 showError("code2", `Invalid ${input_name_text2}`, true);
               } else if (jsonResponse.reason === "code3") {
                 showError("code3", `Invalid ${input_name_text3}`, true);
+              } else if (jsonResponse.reason === "code4") {
+                showError("code4", `Invalid ${input_name_text4}`, true);
+              } else if (jsonResponse.reason === "code5") {
+                showError("code5", `Invalid ${input_name_text5}`, true);
+              } else if (jsonResponse.reason === "code6") {
+                showError("code6", `Invalid ${input_name_text6}`, true);
+              } else if (jsonResponse.reason === "code7") {
+                showError("code7", `Invalid ${input_name_text7}`, true);
+              } else if (jsonResponse.reason === "code8") {
+                showError("code8", `Invalid ${input_name_text8}`, true);
+              } else if (jsonResponse.reason === "code9") {
+                showError("code9", `Invalid ${input_name_text9}`, true);
+              } else if (jsonResponse.reason === "code10") {
+                showError("code10", `Invalid ${input_name_text10}`, true);
+              } else if (jsonResponse.reason === "code11") {
+                showError("code11", `Invalid ${input_name_text11}`, true);
+              } else if (jsonResponse.reason === "code12") {
+                showError("code12", `Invalid ${input_name_text12}`, true);
+              } else if (jsonResponse.reason === "code13") {
+                showError("code13", `Invalid ${input_name_text13}`, true);
+              } else if (jsonResponse.reason === "code14") {
+                showError("code14", `Invalid ${input_name_text14}`, true);
+              } else if (jsonResponse.reason === "code15") {
+                showError("code15", `Invalid ${input_name_text15}`, true);
+              } else if (jsonResponse.reason === "code16") {
+                showError("code16", `Invalid ${input_name_text16}`, true);
               } else if (
                 jsonResponse.reason === "ssid" &&
                 payload.password &&
@@ -932,7 +1571,20 @@ static constexpr const char index_html17[] PROGMEM =
             );
             showcodeField(jsonResponse.show_code1,
                           jsonResponse.show_code2,
-                          jsonResponse.show_code3);
+                          jsonResponse.show_code3,
+                          jsonResponse.show_code4,
+                          jsonResponse.show_code5,
+                          jsonResponse.show_code6,
+                          jsonResponse.show_code7,
+                          jsonResponse.show_code8,
+                          jsonResponse.show_code9,
+                          jsonResponse.show_code10,
+                          jsonResponse.show_code11,
+                          jsonResponse.show_code12,
+                          jsonResponse.show_code13,
+                          jsonResponse.show_code14,
+                          jsonResponse.show_code15,
+                          jsonResponse.show_code16);
           })
           .catch(() => {
             console.error("Error on Refresh");
@@ -981,16 +1633,25 @@ static constexpr const char index_html17[] PROGMEM =
           : "none";
       }
 
-      function showcodeField(state1, state2, state3) {
-        document.getElementById("codeinputBlock").style.display = state1
-          ? ""
-          : "none";
-        document.getElementById("codeinputBlock2").style.display = state2
-          ? ""
-          : "none";
-        document.getElementById("codeinputBlock3").style.display = state3
-          ? ""
-          : "none";
+      function showcodeField(state1, state2, state3, state4, state5, state6,
+                             state7, state8, state9, state10, state11, state12,
+                             state13, state14, state15, state16) {
+        document.getElementById("codeinputBlock").style.display = state1 ? "" : "none";
+        document.getElementById("codeinputBlock2").style.display = state2 ? "" : "none";
+        document.getElementById("codeinputBlock3").style.display = state3 ? "" : "none";
+        document.getElementById("codeinputBlock4").style.display = state4 ? "" : "none";
+        document.getElementById("codeinputBlock5").style.display = state5 ? "" : "none";
+        document.getElementById("codeinputBlock6").style.display = state6 ? "" : "none";
+        document.getElementById("codeinputBlock7").style.display = state7 ? "" : "none";
+        document.getElementById("codeinputBlock8").style.display = state8 ? "" : "none";
+        document.getElementById("codeinputBlock9").style.display = state9 ? "" : "none";
+        document.getElementById("codeinputBlock10").style.display = state10 ? "" : "none";
+        document.getElementById("codeinputBlock11").style.display = state11 ? "" : "none";
+        document.getElementById("codeinputBlock12").style.display = state12 ? "" : "none";
+        document.getElementById("codeinputBlock13").style.display = state13 ? "" : "none";
+        document.getElementById("codeinputBlock14").style.display = state14 ? "" : "none";
+        document.getElementById("codeinputBlock15").style.display = state15 ? "" : "none";
+        document.getElementById("codeinputBlock16").style.display = state16 ? "" : "none";
       }
 
       function isHidden() {
@@ -1005,19 +1666,52 @@ static constexpr const char index_html17[] PROGMEM =
       }
 
       function isCodeVisible() {
-        return document.getElementById("codeinputBlock").style.display === ""
-          ? true
-          : false;
+        return document.getElementById("codeinputBlock").style.display === "" ? true : false;
       }
       function isCode2Visible() {
-        return document.getElementById("codeinputBlock2").style.display === ""
-          ? true
-          : false;
+        return document.getElementById("codeinputBlock2").style.display === "" ? true : false;
       }
       function isCode3Visible() {
-        return document.getElementById("codeinputBlock3").style.display === ""
-          ? true
-          : false;
+        return document.getElementById("codeinputBlock3").style.display === "" ? true : false;
+      }
+      function isCode4Visible() {
+        return document.getElementById("codeinputBlock4").style.display === "" ? true : false;
+      }
+      function isCode5Visible() {
+        return document.getElementById("codeinputBlock5").style.display === "" ? true : false;
+      }
+      function isCode6Visible() {
+        return document.getElementById("codeinputBlock6").style.display === "" ? true : false;
+      }
+      function isCode7Visible() {
+        return document.getElementById("codeinputBlock7").style.display === "" ? true : false;
+      }
+      function isCode8Visible() {
+        return document.getElementById("codeinputBlock8").style.display === "" ? true : false;
+      }
+      function isCode9Visible() {
+        return document.getElementById("codeinputBlock9").style.display === "" ? true : false;
+      }
+      function isCode10Visible() {
+        return document.getElementById("codeinputBlock10").style.display === "" ? true : false;
+      }
+      function isCode11Visible() {
+        return document.getElementById("codeinputBlock11").style.display === "" ? true : false;
+      }
+      function isCode12Visible() {
+        return document.getElementById("codeinputBlock12").style.display === "" ? true : false;
+      }
+      function isCode13Visible() {
+        return document.getElementById("codeinputBlock13").style.display === "" ? true : false;
+      }
+      function isCode14Visible() {
+        return document.getElementById("codeinputBlock14").style.display === "" ? true : false;
+      }
+      function isCode15Visible() {
+        return document.getElementById("codeinputBlock15").style.display === "" ? true : false;
+      }
+      function isCode16Visible() {
+        return document.getElementById("codeinputBlock16").style.display === "" ? true : false;
       }
       function isPasswordVisible() {
         return document.getElementById("hiddenPassword").style.display === ""
