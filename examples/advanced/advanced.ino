@@ -63,9 +63,9 @@ void setup() {
       .onProvision([]() {
         preferences.begin("wifi-provision", true);
         // hide or show additional fields based on stored values
-        provisioner.getConfig().SHOW_INPUT_FIELD = preferences.getString("apikey", "").isEmpty() ? true : false;
-        provisioner.getConfig().SHOW_INPUT_FIELD_2 = preferences.getString("deviceid", "").isEmpty() ? true : false;
-        provisioner.getConfig().SHOW_INPUT_FIELD_3 = preferences.getString("secret", "").isEmpty() ? true : false;
+        provisioner.getConfig().SHOW_INPUT_FIELD = preferences.getString("apikey", "").isEmpty();
+        provisioner.getConfig().SHOW_INPUT_FIELD_2 = preferences.getString("deviceid", "").isEmpty();
+        provisioner.getConfig().SHOW_INPUT_FIELD_3 = preferences.getString("secret", "").isEmpty();
         Serial.println("Provision callback: adjusted visibility based on preferences.");
         preferences.end();
       })
