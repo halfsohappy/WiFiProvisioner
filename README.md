@@ -56,13 +56,7 @@ void setup() {
 
   // Set the success callback
     provisioner.onSuccess(
-        [](const char *ssid, const char *password,
-           const char *input1, const char *input2, const char *input3,
-           const char *input4, const char *input5, const char *input6,
-           const char *input7, const char *input8, const char *input9,
-           const char *input10, const char *input11, const char *input12,
-           const char *input13, const char *input14, const char *input15,
-           const char *input16) {
+        [](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
           Serial.printf("Provisioning successful! Connected to SSID: %s
 ", ssid);
           if (password) {
@@ -219,25 +213,20 @@ provisioner.onProvision([]() {
 });
 ```
 #### `onInputCheck`
-Validates user input during the provisioning process. The callback function accepts up to 16 `const char*` input parameters and returns a `bool` to indicate whether the inputs are valid.
+Validates user input during the provisioning process. The callback function takes a single parameter of type `const char*` and returns a `bool` to indicate whether the input is valid.
 
-- This callback acts as a **gatekeeper** to ensure the inputs meet specific criteria before completing the provisioning process and calling the `onSuccess` callback.
+- This callback acts as a **gatekeeper** to ensure the input meets specific criteria before completing the provisioning process and calling the `onSuccess` callback.
 - If the input validation fails (i.e., the callback returns `false`), an error message will be displayed to the user indicating the input is invalid.
 - **WiFi is already connected successfully** to reach this callback, allowing you to perform checks that require an active network connection (e.g., API calls or HTTP requests).
   
 **Parameters**:
-- `const char* input1` through `const char* input16`: The user-provided inputs to validate (any may be `nullptr` if not enabled).
+- `const char* input`: The user-provided input to validate.
 
 Example:
 ```cpp
-provisioner.onInputCheck([](const char *input1, const char *input2, const char *input3,
-                             const char *input4, const char *input5, const char *input6,
-                             const char *input7, const char *input8, const char *input9,
-                             const char *input10, const char *input11, const char *input12,
-                             const char *input13, const char *input14, const char *input15,
-                             const char *input16) -> bool {
-  if (input1) return strcmp(input1, "1234") == 0; // Validate first input
-  return true;
+provisioner.onInputCheck([](const char *input) -> bool {
+  Serial.printf("Checking if input code equals to 1234: %s\n", input);
+  return strcmp(input, "1234") == 0; // Validate input
 })
 ```
 #### `onFactoryReset`
@@ -260,16 +249,12 @@ Invoked after the device has been successfully connected to the Wi-Fi network an
   **Parameters**:
   - `const char* ssid`: The SSID of the connected Wi-Fi network.
   - `const char* password`: The password for the Wi-Fi network (or `nullptr` for open networks).
-  - `const char* input1` through `const char* input16`: The user-provided inputs (or `nullptr` if disabled).
+  - `const char* input1`: The first user-provided input (or `nullptr` if disabled).
+  - `const char* input2`: The second user-provided input (or `nullptr` if disabled).
+  - `const char* input3`: The third user-provided input (or `nullptr` if disabled).
   Example:
   ```cpp
-  provisioner.onSuccess([](const char *ssid, const char *password,
-                           const char *input1, const char *input2, const char *input3,
-                           const char *input4, const char *input5, const char *input6,
-                           const char *input7, const char *input8, const char *input9,
-                           const char *input10, const char *input11, const char *input12,
-                           const char *input13, const char *input14, const char *input15,
-                           const char *input16) {
+  provisioner.onSuccess([](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
 
   Serial.printf("Provisioning successful! SSID: %s\n", ssid);
   preferences.begin("wifi-provision", false);
@@ -319,45 +304,6 @@ You can customize various aspects of the library, such as the HTML content, inpu
 | `INPUT_TEXT_3`            | Label text for the third additional input field       |
 | `INPUT_LENGTH_3`          | Maximum length for the third additional input field   |
 | `SHOW_INPUT_FIELD_3`      | Whether to display the third additional input field   |
-| `INPUT_TEXT_4`            | Label text for the fourth additional input field      |
-| `INPUT_LENGTH_4`          | Maximum length for the fourth additional input field  |
-| `SHOW_INPUT_FIELD_4`      | Whether to display the fourth additional input field  |
-| `INPUT_TEXT_5`            | Label text for the fifth additional input field       |
-| `INPUT_LENGTH_5`          | Maximum length for the fifth additional input field   |
-| `SHOW_INPUT_FIELD_5`      | Whether to display the fifth additional input field   |
-| `INPUT_TEXT_6`            | Label text for the sixth additional input field       |
-| `INPUT_LENGTH_6`          | Maximum length for the sixth additional input field   |
-| `SHOW_INPUT_FIELD_6`      | Whether to display the sixth additional input field   |
-| `INPUT_TEXT_7`            | Label text for the seventh additional input field     |
-| `INPUT_LENGTH_7`          | Maximum length for the seventh additional input field |
-| `SHOW_INPUT_FIELD_7`      | Whether to display the seventh additional input field |
-| `INPUT_TEXT_8`            | Label text for the eighth additional input field      |
-| `INPUT_LENGTH_8`          | Maximum length for the eighth additional input field  |
-| `SHOW_INPUT_FIELD_8`      | Whether to display the eighth additional input field  |
-| `INPUT_TEXT_9`            | Label text for the ninth additional input field       |
-| `INPUT_LENGTH_9`          | Maximum length for the ninth additional input field   |
-| `SHOW_INPUT_FIELD_9`      | Whether to display the ninth additional input field   |
-| `INPUT_TEXT_10`           | Label text for the tenth additional input field       |
-| `INPUT_LENGTH_10`         | Maximum length for the tenth additional input field   |
-| `SHOW_INPUT_FIELD_10`     | Whether to display the tenth additional input field   |
-| `INPUT_TEXT_11`           | Label text for the eleventh additional input field    |
-| `INPUT_LENGTH_11`         | Maximum length for the eleventh additional input field|
-| `SHOW_INPUT_FIELD_11`     | Whether to display the eleventh additional input field|
-| `INPUT_TEXT_12`           | Label text for the twelfth additional input field     |
-| `INPUT_LENGTH_12`         | Maximum length for the twelfth additional input field |
-| `SHOW_INPUT_FIELD_12`     | Whether to display the twelfth additional input field |
-| `INPUT_TEXT_13`           | Label text for the thirteenth additional input field  |
-| `INPUT_LENGTH_13`         | Maximum length for the thirteenth additional input field|
-| `SHOW_INPUT_FIELD_13`     | Whether to display the thirteenth additional input field|
-| `INPUT_TEXT_14`           | Label text for the fourteenth additional input field  |
-| `INPUT_LENGTH_14`         | Maximum length for the fourteenth additional input field|
-| `SHOW_INPUT_FIELD_14`     | Whether to display the fourteenth additional input field|
-| `INPUT_TEXT_15`           | Label text for the fifteenth additional input field   |
-| `INPUT_LENGTH_15`         | Maximum length for the fifteenth additional input field|
-| `SHOW_INPUT_FIELD_15`     | Whether to display the fifteenth additional input field|
-| `INPUT_TEXT_16`           | Label text for the sixteenth additional input field   |
-| `INPUT_LENGTH_16`         | Maximum length for the sixteenth additional input field|
-| `SHOW_INPUT_FIELD_16`     | Whether to display the sixteenth additional input field|
 | `SHOW_RESET_FIELD`        | Whether to display the factory reset option     |
 
 ### Default Values
@@ -375,9 +321,12 @@ You can customize various aspects of the library, such as the HTML content, inpu
 - **`INPUT_TEXT`**: `"Device Key"`  
 - **`INPUT_LENGTH`**: `4`  
 - **`SHOW_INPUT_FIELD`**: `false`  
-- **`INPUT_TEXT_2`** through **`INPUT_TEXT_16`**: `""`  
-- **`INPUT_LENGTH_2`** through **`INPUT_LENGTH_16`**: `0`  
-- **`SHOW_INPUT_FIELD_2`** through **`SHOW_INPUT_FIELD_16`**: `false`
+- **`INPUT_TEXT_2`**: ``  
+- **`INPUT_LENGTH_2`**: `0`  
+- **`SHOW_INPUT_FIELD_2`**: `false`  
+- **`INPUT_TEXT_3`**: ``  
+- **`INPUT_LENGTH_3`**: `0`  
+- **`SHOW_INPUT_FIELD_3`**: `false`
 - **`SHOW_RESET_FIELD`**: `true`  
   
 ### Customization Examples
@@ -452,13 +401,7 @@ void setup() {
 
     // Set the success callback
     provisioner.onSuccess(
-        [](const char *ssid, const char *password,
-           const char *input1, const char *input2, const char *input3,
-           const char *input4, const char *input5, const char *input6,
-           const char *input7, const char *input8, const char *input9,
-           const char *input10, const char *input11, const char *input12,
-           const char *input13, const char *input14, const char *input15,
-           const char *input16) {
+        [](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
           Serial.printf("Provisioning successful! Connected to SSID: %s
 ", ssid);
           if (password) {

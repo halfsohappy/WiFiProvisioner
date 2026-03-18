@@ -213,9 +213,6 @@ void sendHeader(WiFiClient &client, int statusCode, const char *contentType,
  * - `INPUT_TEXT_3`, `INPUT_LENGTH_3`, `SHOW_INPUT_FIELD_3` - configuration for
  *   a third custom input field.
  *
- * - Fields 4 through 16 follow the same pattern
- *   (`INPUT_TEXT_N`, `INPUT_LENGTH_N`, `SHOW_INPUT_FIELD_N`).
- *
  * - `SHOW_RESET_FIELD`: `true` - Whether to display the factory reset option.
  *
  *
@@ -238,9 +235,6 @@ void sendHeader(WiFiClient &client, int statusCode, const char *contentType,
  * @param inputText3 Label for the third input field (if shown).
  * @param inputLength3 Maximum length for the third input field.
  * @param showInputField3 Whether to display the third input field.
- * @param inputText4..inputText16 Labels for input fields 4-16 (if shown).
- * @param inputLength4..inputLength16 Maximum lengths for input fields 4-16.
- * @param showInputField4..showInputField16 Whether to display fields 4-16.
  * @param showResetField Whether to display the factory reset option.
  *
  * Example Usage:
@@ -250,9 +244,9 @@ void sendHeader(WiFiClient &client, int statusCode, const char *contentType,
  *     "Custom Project", "Custom Setup", "Custom Information",
  *     "Custom Footer", "Success Message", "Are you sure?",
  *     "First Key", 10, true,
- *     "Second Key", 8, false,
- *     "Third Key", 6, true,
- *     false);
+*     "Second Key", 8, false,
+*     "Third Key", 6, true,
+*     false);
  * ```
  */
 WiFiProvisioner::Config::Config(const char *apName, const char *htmlTitle,
@@ -268,32 +262,6 @@ WiFiProvisioner::Config::Config(const char *apName, const char *htmlTitle,
                                 bool showInputField2,
                                 const char *inputText3, int inputLength3,
                                 bool showInputField3,
-                                const char *inputText4, int inputLength4,
-                                bool showInputField4,
-                                const char *inputText5, int inputLength5,
-                                bool showInputField5,
-                                const char *inputText6, int inputLength6,
-                                bool showInputField6,
-                                const char *inputText7, int inputLength7,
-                                bool showInputField7,
-                                const char *inputText8, int inputLength8,
-                                bool showInputField8,
-                                const char *inputText9, int inputLength9,
-                                bool showInputField9,
-                                const char *inputText10, int inputLength10,
-                                bool showInputField10,
-                                const char *inputText11, int inputLength11,
-                                bool showInputField11,
-                                const char *inputText12, int inputLength12,
-                                bool showInputField12,
-                                const char *inputText13, int inputLength13,
-                                bool showInputField13,
-                                const char *inputText14, int inputLength14,
-                                bool showInputField14,
-                                const char *inputText15, int inputLength15,
-                                bool showInputField15,
-                                const char *inputText16, int inputLength16,
-                                bool showInputField16,
                                 bool showResetField)
     : AP_NAME(apName), HTML_TITLE(htmlTitle), THEME_COLOR(themeColor),
       SVG_LOGO(svgLogo), PROJECT_TITLE(projectTitle),
@@ -306,32 +274,6 @@ WiFiProvisioner::Config::Config(const char *apName, const char *htmlTitle,
       SHOW_INPUT_FIELD_2(showInputField2),
       INPUT_TEXT_3(inputText3), INPUT_LENGTH_3(inputLength3),
       SHOW_INPUT_FIELD_3(showInputField3),
-      INPUT_TEXT_4(inputText4), INPUT_LENGTH_4(inputLength4),
-      SHOW_INPUT_FIELD_4(showInputField4),
-      INPUT_TEXT_5(inputText5), INPUT_LENGTH_5(inputLength5),
-      SHOW_INPUT_FIELD_5(showInputField5),
-      INPUT_TEXT_6(inputText6), INPUT_LENGTH_6(inputLength6),
-      SHOW_INPUT_FIELD_6(showInputField6),
-      INPUT_TEXT_7(inputText7), INPUT_LENGTH_7(inputLength7),
-      SHOW_INPUT_FIELD_7(showInputField7),
-      INPUT_TEXT_8(inputText8), INPUT_LENGTH_8(inputLength8),
-      SHOW_INPUT_FIELD_8(showInputField8),
-      INPUT_TEXT_9(inputText9), INPUT_LENGTH_9(inputLength9),
-      SHOW_INPUT_FIELD_9(showInputField9),
-      INPUT_TEXT_10(inputText10), INPUT_LENGTH_10(inputLength10),
-      SHOW_INPUT_FIELD_10(showInputField10),
-      INPUT_TEXT_11(inputText11), INPUT_LENGTH_11(inputLength11),
-      SHOW_INPUT_FIELD_11(showInputField11),
-      INPUT_TEXT_12(inputText12), INPUT_LENGTH_12(inputLength12),
-      SHOW_INPUT_FIELD_12(showInputField12),
-      INPUT_TEXT_13(inputText13), INPUT_LENGTH_13(inputLength13),
-      SHOW_INPUT_FIELD_13(showInputField13),
-      INPUT_TEXT_14(inputText14), INPUT_LENGTH_14(inputLength14),
-      SHOW_INPUT_FIELD_14(showInputField14),
-      INPUT_TEXT_15(inputText15), INPUT_LENGTH_15(inputLength15),
-      SHOW_INPUT_FIELD_15(showInputField15),
-      INPUT_TEXT_16(inputText16), INPUT_LENGTH_16(inputLength16),
-      SHOW_INPUT_FIELD_16(showInputField16),
       SHOW_RESET_FIELD(showResetField) {}
 
 /**
@@ -714,34 +656,8 @@ void WiFiProvisioner::handleRootRequest() {
   snprintf(inputLengthStr2, sizeof(inputLengthStr2), "%d", _config.INPUT_LENGTH_2);
   char inputLengthStr3[12];
   snprintf(inputLengthStr3, sizeof(inputLengthStr3), "%d", _config.INPUT_LENGTH_3);
-  char inputLengthStr4[12];
-  snprintf(inputLengthStr4, sizeof(inputLengthStr4), "%d", _config.INPUT_LENGTH_4);
-  char inputLengthStr5[12];
-  snprintf(inputLengthStr5, sizeof(inputLengthStr5), "%d", _config.INPUT_LENGTH_5);
-  char inputLengthStr6[12];
-  snprintf(inputLengthStr6, sizeof(inputLengthStr6), "%d", _config.INPUT_LENGTH_6);
-  char inputLengthStr7[12];
-  snprintf(inputLengthStr7, sizeof(inputLengthStr7), "%d", _config.INPUT_LENGTH_7);
-  char inputLengthStr8[12];
-  snprintf(inputLengthStr8, sizeof(inputLengthStr8), "%d", _config.INPUT_LENGTH_8);
-  char inputLengthStr9[12];
-  snprintf(inputLengthStr9, sizeof(inputLengthStr9), "%d", _config.INPUT_LENGTH_9);
-  char inputLengthStr10[12];
-  snprintf(inputLengthStr10, sizeof(inputLengthStr10), "%d", _config.INPUT_LENGTH_10);
-  char inputLengthStr11[12];
-  snprintf(inputLengthStr11, sizeof(inputLengthStr11), "%d", _config.INPUT_LENGTH_11);
-  char inputLengthStr12[12];
-  snprintf(inputLengthStr12, sizeof(inputLengthStr12), "%d", _config.INPUT_LENGTH_12);
-  char inputLengthStr13[12];
-  snprintf(inputLengthStr13, sizeof(inputLengthStr13), "%d", _config.INPUT_LENGTH_13);
-  char inputLengthStr14[12];
-  snprintf(inputLengthStr14, sizeof(inputLengthStr14), "%d", _config.INPUT_LENGTH_14);
-  char inputLengthStr15[12];
-  snprintf(inputLengthStr15, sizeof(inputLengthStr15), "%d", _config.INPUT_LENGTH_15);
-  char inputLengthStr16[12];
-  snprintf(inputLengthStr16, sizeof(inputLengthStr16), "%d", _config.INPUT_LENGTH_16);
 
-  // calculate required length including all sixteen label strings and their lengths
+  // calculate required length including three label strings and their lengths
   size_t contentLength =
       strlen_P(index_html1) + strlen(_config.HTML_TITLE) +
       strlen_P(index_html2) + strlen(_config.THEME_COLOR) +
@@ -754,33 +670,7 @@ void WiFiProvisioner::handleRootRequest() {
       strlen(_config.INPUT_TEXT_2) + strlen_P(index_html10) +
       strlen(inputLengthStr2) + strlen_P(index_html11) +
       strlen(_config.INPUT_TEXT_3) + strlen_P(index_html12) +
-      strlen(inputLengthStr3) + strlen_P(index_html_in4a) +
-      strlen(_config.INPUT_TEXT_4) + strlen_P(index_html_in4b) +
-      strlen(inputLengthStr4) + strlen_P(index_html_in5a) +
-      strlen(_config.INPUT_TEXT_5) + strlen_P(index_html_in5b) +
-      strlen(inputLengthStr5) + strlen_P(index_html_in6a) +
-      strlen(_config.INPUT_TEXT_6) + strlen_P(index_html_in6b) +
-      strlen(inputLengthStr6) + strlen_P(index_html_in7a) +
-      strlen(_config.INPUT_TEXT_7) + strlen_P(index_html_in7b) +
-      strlen(inputLengthStr7) + strlen_P(index_html_in8a) +
-      strlen(_config.INPUT_TEXT_8) + strlen_P(index_html_in8b) +
-      strlen(inputLengthStr8) + strlen_P(index_html_in9a) +
-      strlen(_config.INPUT_TEXT_9) + strlen_P(index_html_in9b) +
-      strlen(inputLengthStr9) + strlen_P(index_html_in10a) +
-      strlen(_config.INPUT_TEXT_10) + strlen_P(index_html_in10b) +
-      strlen(inputLengthStr10) + strlen_P(index_html_in11a) +
-      strlen(_config.INPUT_TEXT_11) + strlen_P(index_html_in11b) +
-      strlen(inputLengthStr11) + strlen_P(index_html_in12a) +
-      strlen(_config.INPUT_TEXT_12) + strlen_P(index_html_in12b) +
-      strlen(inputLengthStr12) + strlen_P(index_html_in13a) +
-      strlen(_config.INPUT_TEXT_13) + strlen_P(index_html_in13b) +
-      strlen(inputLengthStr13) + strlen_P(index_html_in14a) +
-      strlen(_config.INPUT_TEXT_14) + strlen_P(index_html_in14b) +
-      strlen(inputLengthStr14) + strlen_P(index_html_in15a) +
-      strlen(_config.INPUT_TEXT_15) + strlen_P(index_html_in15b) +
-      strlen(inputLengthStr15) + strlen_P(index_html_in16a) +
-      strlen(_config.INPUT_TEXT_16) + strlen_P(index_html_in16b) +
-      strlen(inputLengthStr16) + strlen_P(index_html13) +
+      strlen(inputLengthStr3) + strlen_P(index_html13) +
       strlen(_config.CONNECTION_SUCCESSFUL) + strlen_P(index_html14) +
       strlen(_config.FOOTER_TEXT) + strlen_P(index_html15) +
       strlen(_config.RESET_CONFIRMATION_TEXT) + strlen_P(index_html16) +
@@ -816,58 +706,6 @@ void WiFiProvisioner::handleRootRequest() {
   client.print(_config.INPUT_TEXT_3);
   client.write_P(index_html12, strlen_P(index_html12));
   client.print(inputLengthStr3);
-  client.write_P(index_html_in4a, strlen_P(index_html_in4a));
-  client.print(_config.INPUT_TEXT_4);
-  client.write_P(index_html_in4b, strlen_P(index_html_in4b));
-  client.print(inputLengthStr4);
-  client.write_P(index_html_in5a, strlen_P(index_html_in5a));
-  client.print(_config.INPUT_TEXT_5);
-  client.write_P(index_html_in5b, strlen_P(index_html_in5b));
-  client.print(inputLengthStr5);
-  client.write_P(index_html_in6a, strlen_P(index_html_in6a));
-  client.print(_config.INPUT_TEXT_6);
-  client.write_P(index_html_in6b, strlen_P(index_html_in6b));
-  client.print(inputLengthStr6);
-  client.write_P(index_html_in7a, strlen_P(index_html_in7a));
-  client.print(_config.INPUT_TEXT_7);
-  client.write_P(index_html_in7b, strlen_P(index_html_in7b));
-  client.print(inputLengthStr7);
-  client.write_P(index_html_in8a, strlen_P(index_html_in8a));
-  client.print(_config.INPUT_TEXT_8);
-  client.write_P(index_html_in8b, strlen_P(index_html_in8b));
-  client.print(inputLengthStr8);
-  client.write_P(index_html_in9a, strlen_P(index_html_in9a));
-  client.print(_config.INPUT_TEXT_9);
-  client.write_P(index_html_in9b, strlen_P(index_html_in9b));
-  client.print(inputLengthStr9);
-  client.write_P(index_html_in10a, strlen_P(index_html_in10a));
-  client.print(_config.INPUT_TEXT_10);
-  client.write_P(index_html_in10b, strlen_P(index_html_in10b));
-  client.print(inputLengthStr10);
-  client.write_P(index_html_in11a, strlen_P(index_html_in11a));
-  client.print(_config.INPUT_TEXT_11);
-  client.write_P(index_html_in11b, strlen_P(index_html_in11b));
-  client.print(inputLengthStr11);
-  client.write_P(index_html_in12a, strlen_P(index_html_in12a));
-  client.print(_config.INPUT_TEXT_12);
-  client.write_P(index_html_in12b, strlen_P(index_html_in12b));
-  client.print(inputLengthStr12);
-  client.write_P(index_html_in13a, strlen_P(index_html_in13a));
-  client.print(_config.INPUT_TEXT_13);
-  client.write_P(index_html_in13b, strlen_P(index_html_in13b));
-  client.print(inputLengthStr13);
-  client.write_P(index_html_in14a, strlen_P(index_html_in14a));
-  client.print(_config.INPUT_TEXT_14);
-  client.write_P(index_html_in14b, strlen_P(index_html_in14b));
-  client.print(inputLengthStr14);
-  client.write_P(index_html_in15a, strlen_P(index_html_in15a));
-  client.print(_config.INPUT_TEXT_15);
-  client.write_P(index_html_in15b, strlen_P(index_html_in15b));
-  client.print(inputLengthStr15);
-  client.write_P(index_html_in16a, strlen_P(index_html_in16a));
-  client.print(_config.INPUT_TEXT_16);
-  client.write_P(index_html_in16b, strlen_P(index_html_in16b));
-  client.print(inputLengthStr16);
   client.write_P(index_html13, strlen_P(index_html13));
   client.print(_config.CONNECTION_SUCCESSFUL);
   client.write_P(index_html14, strlen_P(index_html14));
@@ -914,19 +752,6 @@ void WiFiProvisioner::handleUpdateRequest() {
   doc["show_code1"] = _config.SHOW_INPUT_FIELD;
   doc["show_code2"] = _config.SHOW_INPUT_FIELD_2;
   doc["show_code3"] = _config.SHOW_INPUT_FIELD_3;
-  doc["show_code4"] = _config.SHOW_INPUT_FIELD_4;
-  doc["show_code5"] = _config.SHOW_INPUT_FIELD_5;
-  doc["show_code6"] = _config.SHOW_INPUT_FIELD_6;
-  doc["show_code7"] = _config.SHOW_INPUT_FIELD_7;
-  doc["show_code8"] = _config.SHOW_INPUT_FIELD_8;
-  doc["show_code9"] = _config.SHOW_INPUT_FIELD_9;
-  doc["show_code10"] = _config.SHOW_INPUT_FIELD_10;
-  doc["show_code11"] = _config.SHOW_INPUT_FIELD_11;
-  doc["show_code12"] = _config.SHOW_INPUT_FIELD_12;
-  doc["show_code13"] = _config.SHOW_INPUT_FIELD_13;
-  doc["show_code14"] = _config.SHOW_INPUT_FIELD_14;
-  doc["show_code15"] = _config.SHOW_INPUT_FIELD_15;
-  doc["show_code16"] = _config.SHOW_INPUT_FIELD_16;
   networkScan(doc);
 
   WiFiClient client = _server->client();
@@ -988,27 +813,12 @@ void WiFiProvisioner::handleConfigureRequest() {
   const char *input1 = doc["code1"];
   const char *input2 = doc["code2"];
   const char *input3 = doc["code3"];
-  const char *input4 = doc["code4"];
-  const char *input5 = doc["code5"];
-  const char *input6 = doc["code6"];
-  const char *input7 = doc["code7"];
-  const char *input8 = doc["code8"];
-  const char *input9 = doc["code9"];
-  const char *input10 = doc["code10"];
-  const char *input11 = doc["code11"];
-  const char *input12 = doc["code12"];
-  const char *input13 = doc["code13"];
-  const char *input14 = doc["code14"];
-  const char *input15 = doc["code15"];
-  const char *input16 = doc["code16"];
 
   WIFI_PROVISIONER_DEBUG_LOG(
-      WIFI_PROVISIONER_LOG_INFO,
-      "SSID: %s, PASSWORD: %s, INPUT1: %s INPUT2: %s INPUT3: %s ... INPUT16: %s",
+      WIFI_PROVISIONER_LOG_INFO, "SSID: %s, PASSWORD: %s, INPUT1: %s INPUT2: %s INPUT3: %s",
       ssid_connect ? ssid_connect : "",
       pass_connect ? pass_connect : "",
-      input1 ? input1 : "", input2 ? input2 : "", input3 ? input3 : "",
-      input16 ? input16 : "");
+      input1 ? input1 : "", input2 ? input2 : "", input3 ? input3 : "");
 
   if (!ssid_connect) {
     WIFI_PROVISIONER_DEBUG_LOG(WIFI_PROVISIONER_LOG_WARN,
@@ -1028,12 +838,8 @@ void WiFiProvisioner::handleConfigureRequest() {
     return;
   }
 
-  if ((input1 || input2 || input3 || input4 || input5 || input6 || input7 ||
-       input8 || input9 || input10 || input11 || input12 || input13 ||
-       input14 || input15 || input16) && inputCheckCallback &&
-      !inputCheckCallback(input1, input2, input3, input4, input5, input6,
-                          input7, input8, input9, input10, input11, input12,
-                          input13, input14, input15, input16)) {
+  if ((input1 || input2 || input3) && inputCheckCallback &&
+      !inputCheckCallback(input1, input2, input3)) {
     WIFI_PROVISIONER_DEBUG_LOG(WIFI_PROVISIONER_LOG_INFO,
                                "Input check callback failed.");
     handleUnsuccessfulConnection("code");
@@ -1043,10 +849,7 @@ void WiFiProvisioner::handleConfigureRequest() {
   handleSuccesfulConnection();
 
   if (onSuccessCallback) {
-    onSuccessCallback(ssid_connect, pass_connect,
-                      input1, input2, input3, input4, input5, input6,
-                      input7, input8, input9, input10, input11, input12,
-                      input13, input14, input15, input16);
+    onSuccessCallback(ssid_connect, pass_connect, input1, input2, input3);
   }
 
   // Show success page for a while before closing the server
