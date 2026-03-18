@@ -25,7 +25,7 @@ public:
     int INPUT_LENGTH;                    // Length for the first additional input field
     bool SHOW_INPUT_FIELD;               // Whether to show the first additional input field
 
-    // Support two additional custom input fields
+    // Support up to 15 additional custom input fields (fields 2–16)
     const char *INPUT_TEXT_2;            // Text for second input field
     int INPUT_LENGTH_2;                  // Length for second input field
     bool SHOW_INPUT_FIELD_2;             // Whether to show the second input field
@@ -33,6 +33,59 @@ public:
     const char *INPUT_TEXT_3;            // Text for third input field
     int INPUT_LENGTH_3;                  // Length for third input field
     bool SHOW_INPUT_FIELD_3;             // Whether to show the third input field
+
+    const char *INPUT_TEXT_4;            // Text for fourth input field
+    int INPUT_LENGTH_4;                  // Length for fourth input field
+    bool SHOW_INPUT_FIELD_4;             // Whether to show the fourth input field
+
+    const char *INPUT_TEXT_5;            // Text for fifth input field
+    int INPUT_LENGTH_5;                  // Length for fifth input field
+    bool SHOW_INPUT_FIELD_5;             // Whether to show the fifth input field
+
+    const char *INPUT_TEXT_6;            // Text for sixth input field
+    int INPUT_LENGTH_6;                  // Length for sixth input field
+    bool SHOW_INPUT_FIELD_6;             // Whether to show the sixth input field
+
+    const char *INPUT_TEXT_7;            // Text for seventh input field
+    int INPUT_LENGTH_7;                  // Length for seventh input field
+    bool SHOW_INPUT_FIELD_7;             // Whether to show the seventh input field
+
+    const char *INPUT_TEXT_8;            // Text for eighth input field
+    int INPUT_LENGTH_8;                  // Length for eighth input field
+    bool SHOW_INPUT_FIELD_8;             // Whether to show the eighth input field
+
+    const char *INPUT_TEXT_9;            // Text for ninth input field
+    int INPUT_LENGTH_9;                  // Length for ninth input field
+    bool SHOW_INPUT_FIELD_9;             // Whether to show the ninth input field
+
+    const char *INPUT_TEXT_10;           // Text for tenth input field
+    int INPUT_LENGTH_10;                 // Length for tenth input field
+    bool SHOW_INPUT_FIELD_10;            // Whether to show the tenth input field
+
+    const char *INPUT_TEXT_11;           // Text for eleventh input field
+    int INPUT_LENGTH_11;                 // Length for eleventh input field
+    bool SHOW_INPUT_FIELD_11;            // Whether to show the eleventh input field
+
+    const char *INPUT_TEXT_12;           // Text for twelfth input field
+    int INPUT_LENGTH_12;                 // Length for twelfth input field
+    bool SHOW_INPUT_FIELD_12;            // Whether to show the twelfth input field
+
+    const char *INPUT_TEXT_13;           // Text for thirteenth input field
+    int INPUT_LENGTH_13;                 // Length for thirteenth input field
+    bool SHOW_INPUT_FIELD_13;            // Whether to show the thirteenth input field
+
+    const char *INPUT_TEXT_14;           // Text for fourteenth input field
+    int INPUT_LENGTH_14;                 // Length for fourteenth input field
+    bool SHOW_INPUT_FIELD_14;            // Whether to show the fourteenth input field
+
+    const char *INPUT_TEXT_15;           // Text for fifteenth input field
+    int INPUT_LENGTH_15;                 // Length for fifteenth input field
+    bool SHOW_INPUT_FIELD_15;            // Whether to show the fifteenth input field
+
+    const char *INPUT_TEXT_16;           // Text for sixteenth input field
+    int INPUT_LENGTH_16;                 // Length for sixteenth input field
+    bool SHOW_INPUT_FIELD_16;            // Whether to show the sixteenth input field
+
     bool SHOW_RESET_FIELD;               // Whether to show a reset field
 
     Config(
@@ -59,15 +112,49 @@ public:
         bool showInputField2 = false,
         const char *inputText3 = "", int inputLength3 = 0,
         bool showInputField3 = false,
+        const char *inputText4 = "", int inputLength4 = 0,
+        bool showInputField4 = false,
+        const char *inputText5 = "", int inputLength5 = 0,
+        bool showInputField5 = false,
+        const char *inputText6 = "", int inputLength6 = 0,
+        bool showInputField6 = false,
+        const char *inputText7 = "", int inputLength7 = 0,
+        bool showInputField7 = false,
+        const char *inputText8 = "", int inputLength8 = 0,
+        bool showInputField8 = false,
+        const char *inputText9 = "", int inputLength9 = 0,
+        bool showInputField9 = false,
+        const char *inputText10 = "", int inputLength10 = 0,
+        bool showInputField10 = false,
+        const char *inputText11 = "", int inputLength11 = 0,
+        bool showInputField11 = false,
+        const char *inputText12 = "", int inputLength12 = 0,
+        bool showInputField12 = false,
+        const char *inputText13 = "", int inputLength13 = 0,
+        bool showInputField13 = false,
+        const char *inputText14 = "", int inputLength14 = 0,
+        bool showInputField14 = false,
+        const char *inputText15 = "", int inputLength15 = 0,
+        bool showInputField15 = false,
+        const char *inputText16 = "", int inputLength16 = 0,
+        bool showInputField16 = false,
         bool showResetField = true);
   };
 
   using ProvisionCallback = std::function<void()>;
-  // New callback signatures include all three user inputs (any may be nullptr
+  // Callback signatures include all sixteen user inputs (any may be nullptr
   // if not enabled).
-  using InputCheckCallback = std::function<bool(const char *, const char *, const char *)>;
-  using SuccessCallback =
-      std::function<void(const char *, const char *, const char *, const char *, const char *)>;
+  using InputCheckCallback = std::function<bool(
+      const char *, const char *, const char *, const char *, const char *,
+      const char *, const char *, const char *, const char *, const char *,
+      const char *, const char *, const char *, const char *, const char *,
+      const char *)>;
+  using SuccessCallback = std::function<void(
+      const char *, const char *,
+      const char *, const char *, const char *, const char *, const char *,
+      const char *, const char *, const char *, const char *, const char *,
+      const char *, const char *, const char *, const char *, const char *,
+      const char *)>;
   using FactoryResetCallback = std::function<void()>;
 
   explicit WiFiProvisioner(const Config &config = Config());
