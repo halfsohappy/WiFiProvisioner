@@ -18,15 +18,13 @@ void setup() {
       "The device is now visible in your online dashboard.", // Success Message
       "This action will erase all stored settings, including "
       "API key.", // Reset Confirmation Text
-      "API Key",  // Input 1 Text
-      4,          // Input 1 Max Length
-      true,       // Show Input 1
-      "Device ID",  // Input 2 Text
-      6,          // Input 2 Max Length
-      true,       // Show Input 2
-      "Secret",   // Input 3 Text
-      12,         // Input 3 Max Length
-      true,       // Show Input 3
+      "API Key",  // Input Field Text
+      4,          // Input Field Length
+      "Device ID",  // Second Input Text
+      6,          // Second Input Length
+      "Secret",  // Third Input Text
+      12,         // Third Input Length
+      true,       // Show Input Field
       true        // Show Reset Field
   );
 
@@ -35,25 +33,14 @@ void setup() {
 
   // Set up callbacks
   provisioner.onProvision([]() { Serial.println("Provisioning started."); })
-      .onInputCheck([](const char *input1, const char *input2, const char *input3,
-                       const char *input4, const char *input5, const char *input6,
-                       const char *input7, const char *input8, const char *input9,
-                       const char *input10, const char *input11, const char *input12,
-                       const char *input13, const char *input14, const char *input15,
-                       const char *input16) -> bool {
+      .onInputCheck([](const char *input1, const char *input2, const char *input3) -> bool {
         // simple validations for demonstration
         if (input1 && strcmp(input1, "1234") != 0) return false;
         if (input2 && strlen(input2) != 6) return false;
         if (input3 && strlen(input3) != 12) return false;
         return true;
       })
-      .onSuccess([](const char *ssid, const char *password,
-                    const char *input1, const char *input2, const char *input3,
-                    const char *input4, const char *input5, const char *input6,
-                    const char *input7, const char *input8, const char *input9,
-                    const char *input10, const char *input11, const char *input12,
-                    const char *input13, const char *input14, const char *input15,
-                    const char *input16) {
+      .onSuccess([](const char *ssid, const char *password, const char *input1, const char *input2, const char *input3) {
         Serial.printf("Connected to SSID: %s\n", ssid);
         if (password) {
           Serial.printf("Password: %s\n", password);
