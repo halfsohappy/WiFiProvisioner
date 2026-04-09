@@ -447,6 +447,10 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
               id="ssid"
               class="textinput"
               placeholder="SSID"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="off"
+              spellcheck="false"
             />
             <div id="error-ssid-message" class="error-message"></div>
           </div>
@@ -461,6 +465,9 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
               style="position: relative"
               class="textinput"
               placeholder="Password"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
             />
             <i
               style="
@@ -504,6 +511,10 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
               id="code"
               class="textinput"
               placeholder=""
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="off"
+              spellcheck="false"
             />
           </div>
           <div id="error-code-message" class="error-message"></div>
@@ -519,6 +530,10 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
               id="code2"
               class="textinput"
               placeholder=""
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="off"
+              spellcheck="false"
             />
           </div>
           <div id="error-code2-message" class="error-message"></div>
@@ -534,6 +549,10 @@ static constexpr const char index_html3[] PROGMEM = R"rawliteral(;
               id="code3"
               class="textinput"
               placeholder=""
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="off"
+              spellcheck="false"
             />
           </div>
           <div id="error-code3-message" class="error-message"></div>
